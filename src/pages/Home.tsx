@@ -89,18 +89,20 @@ const Home = () => {
             (position) => {
                 const { latitude, longitude } = position.coords;
                 setLocation([latitude, longitude]);
-            },
-            (error) => {},
-            {
-                enableHighAccuracy: true,
             }
+            // (error) => {},
+            // {
+            //     enableHighAccuracy: true,
+            // }
         );
+        //eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     useEffect(() => {
         if (location[0] && location[1]) {
             refetchCafeList();
         }
+        //eslint-disable-next-line react-hooks/exhaustive-deps
     }, [location]);
 
     return (
