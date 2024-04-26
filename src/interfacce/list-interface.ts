@@ -4,7 +4,8 @@ export interface ListProps {
     lat: number;
     lng: number;
     unmanned: boolean;
-    time: string;
+    closed: string;
+    dist_meters: number;
 }
 
 export interface PageProps {

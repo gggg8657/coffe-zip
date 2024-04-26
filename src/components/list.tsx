@@ -47,12 +47,16 @@ const List: React.FC<{ list: ListProps[] }> = ({ list }) => {
                     <Item
                         key={item.name}
                         $unmanned={item.unmanned}
-                        $time={item.time}
+                        $time={item.closed}
                     >
                         <div>{item.name}</div>
                         {item.unmanned === true && <div>무인</div>}
-                        {item.time !== null && <div>{item.time}</div>}
-                        <div>100m</div>
+                        {item.closed !== null && <div>~ {item.closed}</div>}
+                        {item.dist_meters < 1000 ? (
+                            <div>{item.dist_meters}m</div>
+                        ) : (
+                            <div>{(item.dist_meters / 1000).toFixed(1)}km</div>
+                        )}
                     </Item>
                 ))
             ) : (

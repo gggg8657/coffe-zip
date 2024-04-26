@@ -55,13 +55,15 @@ const Line = styled.div`
     border-radius: 20px;
 `;
 
+export const revalidate = 0;
+
 const Home = () => {
     const [currentPage, setCurrentPage] = useState(0);
-    const { setLocation } = MapStore();
+    const { setLocation, location } = MapStore();
 
-    const { data: cafe_list } = useQuery({
-        queryKey: ["cafe_list"],
-        queryFn: async () => getCafeList(),
+    const { data: cafe_list, refetch: refetchCafeList } = useQuery({
+        queryKey: ["cafe_list", location],
+        queryFn: async () => getCafeList(location[0], location[1]),
     });
 
     const paginateList = (list: ListProps[]) => {
@@ -88,15 +90,18 @@ const Home = () => {
                 const { latitude, longitude } = position.coords;
                 setLocation([latitude, longitude]);
             },
-            (error) => {
-                if (error) alert("현재 위치 찾기에 실패하였습니다.");
-            },
+            (error) => {},
             {
                 enableHighAccuracy: true,
             }
         );
-        //eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
+
+    useEffect(() => {
+        if (location[0] && location[1]) {
+            refetchCafeList();
+        }
+    }, [location]);
 
     return (
         <Wrapper>

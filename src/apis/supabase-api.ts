@@ -11,19 +11,13 @@ export const getAlldayList = async () => {
     return list;
 };
 
-export const getPartTimeList = async () => {
-    const { data: list } = await supabase
-        .from("coffee_zip")
-        .select("*")
-        .not("time", "is", null);
+export const getCafeList = async (lat: number, lng: number) => {
+    const { data: list } = await supabase.rpc("get_nearby_cafes", {
+        latt: lat,
+        long: lng,
+    });
     if (!list) {
         return [];
     }
-    return list;
-};
-
-export const getCafeList = async () => {
-    const { data: list } = await supabase.from("coffee_zip").select("*");
-    if (!list) return [];
     return list;
 };

@@ -66,7 +66,7 @@ const Map: React.FC<{ list: ListProps[] }> = ({ list }) => {
                 if (item.unmanned === true) {
                     markerUrl = "/svg/unman.svg";
                 } else {
-                    if (item.time === null) {
+                    if (item.closed === null) {
                         markerUrl = "/svg/allday.svg";
                     } else {
                         markerUrl = "/svg/parttime.svg";
@@ -96,7 +96,6 @@ const Map: React.FC<{ list: ListProps[] }> = ({ list }) => {
                     center: new kakao.maps.LatLng(location[0], location[1]),
                     level: 5,
                 };
-
                 const initialMap = new kakao.maps.Map(container, options);
                 setMyMap(initialMap);
 
