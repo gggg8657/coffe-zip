@@ -7,6 +7,7 @@ const Wrapper = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
+    gap: 20px;
 `;
 
 const InputWrapper = styled.div`
@@ -43,15 +44,17 @@ const Input = styled.input`
     width: 100%;
     outline: none;
     border-radius: 50px;
+    box-shadow: 0px 1px 0px #000000;
 `;
 
 const SearchList = styled.div`
-    width: 100%;
+    width: 90%;
     max-height: 250px;
     overflow-y: scroll;
     background: #ffffff;
     display: flex;
     flex-direction: column;
+    border-radius: 20px;
 `;
 
 const SearchItem = styled.div`
@@ -93,8 +96,8 @@ const SearchBox = () => {
     };
 
     // 장소 리스트 선택 시 좌표 설정 및 이동 함수
-    const onClickPlace = (lat: string, lng: string, name: string) => {
-        if (placeList) {
+    const onClickPlace = async (lat: string, lng: string, name: string) => {
+        if (placeList.length >= 0) {
             setKeyword(name);
             setPlaceList([]);
         }

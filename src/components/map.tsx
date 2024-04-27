@@ -96,7 +96,7 @@ const Map: React.FC<{ list: ListProps[] }> = ({ list }) => {
             if (container) {
                 const options = {
                     center: new kakao.maps.LatLng(location[0], location[1]),
-                    level: 6,
+                    level: 5,
                 };
                 const initialMap = new kakao.maps.Map(container, options);
                 setMyMap(initialMap);

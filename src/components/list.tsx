@@ -2,11 +2,6 @@ import styled from "styled-components";
 import { ListProps } from "../interfacce/list-interface";
 import SkeletonUI from "./skeleton-ui";
 
-interface ItemProps {
-    $unmanned: boolean;
-    $time: string;
-}
-
 const Wrapper = styled.div`
     display: flex;
     flex-direction: column;
@@ -17,19 +12,13 @@ const Wrapper = styled.div`
     padding: 0px 10px;
 `;
 
-const Item = styled.div<ItemProps>`
+const Item = styled.div`
     cursor: pointer;
     width: 100%;
     display: flex;
     justify-content: space-between;
-    background-color: ${(props) =>
-        props.$unmanned
-            ? "#48D1CC" //무인
-            : props.$time === null
-            ? "#f0f0f0" // 24시
-            : "#FA0050"}; //24시 X
     padding: 6px 10px;
-    color: white;
+    color: #000000;
 `;
 
 const Titie = styled.div`
@@ -54,6 +43,11 @@ const BoldText = styled.span`
     &.title {
         margin-right: 4px;
     }
+    &.unmanned {
+        background-color: #f6d6d5;
+        border-radius: 20px;
+        padding: 4px 8px;
+    }
 `;
 
 const RowBox = styled.div`
@@ -72,6 +66,13 @@ const NoItem = styled.div`
     margin-top: 20px;
 `;
 
+const AlldayIcon = styled.div`
+    width: 20px;
+    height: 20px;
+    border-radius: 20px;
+    background-color: #000000;
+`;
+
 const List: React.FC<{ list: ListProps[]; isLoading: boolean }> = ({
     list,
     isLoading,
@@ -85,16 +86,15 @@ const List: React.FC<{ list: ListProps[]; isLoading: boolean }> = ({
                 <SkeletonUI />
             ) : list ? (
                 list.map((item) => (
-                    <Item
-                        key={item.name}
-                        $unmanned={item.unmanned}
-                        $time={item.closed}
-                    >
-                        <BoldText>{item.name}</BoldText>
+                    <Item key={item.name}>
+                        <RowBox>
+                            <BoldText>{item.name}</BoldText>
+                            {item.closed === null && <AlldayIcon />}
+                        </RowBox>
                         <RowBox>
                             {item.closed !== null && <div>~ {item.closed}</div>}
                             {item.unmanned === true && (
-                                <BoldText>무인</BoldText>
+                                <BoldText className="unmanned">무인</BoldText>
                             )}
                             {item.dist_meters < 1000 ? (
                                 <div>{item.dist_meters}m</div>
