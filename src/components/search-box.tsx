@@ -40,14 +40,14 @@ const SearchBox = () => {
     const [keyword, setKeyword] = useState("");
     const handleSearch = (key: string) => {
         const ps = new kakao.maps.services.Places();
-        function placesSearchCB(
-            data: any[],
+        const placesSearchCB = (
+            data: kakao.maps.services.PlacesSearchResult,
             status: kakao.maps.services.Status
-        ) {
+        ) => {
             if (status === kakao.maps.services.Status.OK) {
-                setLocation([data[0].y, data[0].x]);
+                setLocation([parseFloat(data[0].y), parseFloat(data[0].x)]);
             }
-        }
+        };
         ps.keywordSearch(key, placesSearchCB);
     };
     const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
