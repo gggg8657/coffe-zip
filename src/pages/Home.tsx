@@ -67,7 +67,11 @@ const Home = () => {
     const [currentPage, setCurrentPage] = useState(0);
     const { setLocation, location } = MapStore();
 
-    const { data: cafe_list, refetch: refetchCafeList } = useQuery({
+    const {
+        data: cafe_list,
+        refetch: refetchCafeList,
+        isLoading,
+    } = useQuery({
         queryKey: ["cafe_list", location],
         queryFn: async () => getCafeList(location[0], location[1]),
     });
@@ -120,7 +124,10 @@ const Home = () => {
                     <Search>
                         <SearchBox />
                     </Search>
-                    <List list={paginatedCafeList[currentPage]} />
+                    <List
+                        list={paginatedCafeList[currentPage]}
+                        isLoading={isLoading}
+                    />
                     <TabBar
                         handleChangePage={handleChangePage}
                         page={currentPage}

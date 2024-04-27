@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { ListProps } from "../interfacce/list-interface";
+import SkeletonUI from "./skeleton-ui";
 
 interface ItemProps {
     $unmanned: boolean;
@@ -60,13 +61,28 @@ const RowBox = styled.div`
     gap: 24px;
 `;
 
-const List: React.FC<{ list: ListProps[] }> = ({ list }) => {
+const NoItem = styled.div`
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #4c73c3;
+    font-weight: bold;
+    margin-top: 20px;
+`;
+
+const List: React.FC<{ list: ListProps[]; isLoading: boolean }> = ({
+    list,
+    isLoading,
+}) => {
     return (
         <Wrapper>
             <Titie>
                 <BoldText className="title">Open Cafe</BoldText> Near By
             </Titie>
-            {list ? (
+            {isLoading ? (
+                <SkeletonUI />
+            ) : list ? (
                 list.map((item) => (
                     <Item
                         key={item.name}
@@ -90,7 +106,7 @@ const List: React.FC<{ list: ListProps[] }> = ({ list }) => {
                     </Item>
                 ))
             ) : (
-                <div>no Item</div>
+                <NoItem>근처에 카페가 없습니다.</NoItem>
             )}
         </Wrapper>
     );
