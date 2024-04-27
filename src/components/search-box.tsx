@@ -2,7 +2,14 @@ import { useState } from "react";
 import styled from "styled-components";
 import MapStore from "../stores/map-store";
 
-const SearchForm = styled.form`
+const Wrapper = styled.div`
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+`;
+
+const InputWrapper = styled.div`
     width: 100%;
     display: flex;
     align-items: center;
@@ -11,12 +18,14 @@ const SearchForm = styled.form`
         &.search {
             cursor: pointer;
             position: absolute;
-            right: 36px;
+            right: 40px;
+            top: 44px;
         }
         &.cancle {
             cursor: pointer;
             position: absolute;
-            right: 64px;
+            right: 68px;
+            top: 44px;
         }
     }
 `;
@@ -28,70 +37,112 @@ const Input = styled.input`
     background-color: #ffffff;
     border: 1px solid #d9d9d9;
     border-radius: 10px;
-    margin: 30px 20px;
+    margin: 0px 20px;
+    margin-top: 30px;
     padding: 15px 24px;
     width: 100%;
     outline: none;
     border-radius: 50px;
 `;
 
+const SearchList = styled.div`
+    width: 100%;
+    max-height: 250px;
+    overflow-y: scroll;
+    background: #ffffff;
+    display: flex;
+    flex-direction: column;
+`;
+
+const SearchItem = styled.div`
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 20px;
+    color: #000000;
+    border-bottom: 2px solid #f0f0f0;
+`;
+
 const SearchBox = () => {
     const { setLocation } = MapStore();
     const [keyword, setKeyword] = useState("");
-    const handleSearch = (key: string) => {
+    const [placeList, setPlaceList] = useState<
+        kakao.maps.services.PlacesSearchResultItem[]
+    >([]);
+    const handleSearch = async (key: string) => {
+        if (key === "") return setPlaceList([]);
         const ps = new kakao.maps.services.Places();
         const placesSearchCB = (
-            data: kakao.maps.services.PlacesSearchResult,
+            data: kakao.maps.services.PlacesSearchResultItem[],
             status: kakao.maps.services.Status
         ) => {
             if (status === kakao.maps.services.Status.OK) {
-                setLocation([parseFloat(data[0].y), parseFloat(data[0].x)]);
-            }
+                setPlaceList(data);
+            } else return;
         };
         ps.keywordSearch(key, placesSearchCB);
     };
     const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setKeyword(e.target.value);
+        handleSearch(e.target.value);
     };
-    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
-        if (keyword === "") return;
-        handleSearch(keyword);
-    };
-    const onClickIcon = () => {
-        if (keyword === "") return;
-        handleSearch(keyword);
+    const onClickPlace = (lat: string, lng: string, name: string) => {
+        if (placeList) {
+            setKeyword(name);
+            setPlaceList([]);
+        }
+        setLocation([parseFloat(lat), parseFloat(lng)]);
     };
     const onClickCancle = () => {
         setKeyword("");
     };
     return (
-        <SearchForm onSubmit={handleSubmit}>
-            <Input
-                onChange={onChange}
-                placeholder="장소나 주소를 검색해보세요"
-                type="text"
-                value={keyword}
-            />
-            <img
-                className="search"
-                alt="search-icon"
-                src="/svg/search.svg"
-                height="20"
-                width="auto"
-                onClick={onClickIcon}
-            />
-            {keyword !== "" && (
+        <Wrapper>
+            <InputWrapper>
+                <Input
+                    onChange={onChange}
+                    placeholder="장소나 주소를 검색해보세요"
+                    type="text"
+                    value={keyword}
+                />
                 <img
-                    className="cancle"
-                    alt="cancle-icon"
-                    src="/svg/cancle.svg"
+                    className="search"
+                    alt="search-icon"
+                    src="/svg/search.svg"
                     height="20"
                     width="auto"
-                    onClick={onClickCancle}
                 />
-            )}
-        </SearchForm>
+                {keyword !== "" && (
+                    <img
+                        className="cancle"
+                        alt="cancle-icon"
+                        src="/svg/cancle.svg"
+                        height="20"
+                        width="auto"
+                        onClick={onClickCancle}
+                    />
+                )}
+            </InputWrapper>
+            <SearchList>
+                {placeList.map((place, index) => (
+                    <SearchItem
+                        key={index}
+                        onClick={() =>
+                            onClickPlace(place.y, place.x, place.place_name)
+                        }
+                    >
+                        <div>{place.place_name}</div>
+                        <img
+                            alt="arrow-icon"
+                            src="/svg/arrow.svg"
+                            height="20"
+                            width="auto"
+                        />
+                    </SearchItem>
+                ))}
+            </SearchList>
+        </Wrapper>
     );
 };
 

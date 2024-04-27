@@ -18,6 +18,7 @@ const Wrapper = styled.div`
 `;
 
 const Item = styled.div<ItemProps>`
+    cursor: pointer;
     width: 100%;
     display: flex;
     justify-content: space-between;

@@ -96,7 +96,11 @@ const Map: React.FC<{ list: ListProps[] }> = ({ list }) => {
                     center: new kakao.maps.LatLng(location[0], location[1]),
                     level: 6,
                 };
+                // const initialMarker = new kakao.maps.Marker({
+                //     position: new kakao.maps.LatLng(location[0], location[1]),
+                // });
                 const initialMap = new kakao.maps.Map(container, options);
+                //initialMarker.setMap(initialMap);
                 setMyMap(initialMap);
 
                 navigator.geolocation.getCurrentPosition((position) => {

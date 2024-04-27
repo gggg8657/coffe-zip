@@ -3,9 +3,9 @@ import { useQuery } from "@tanstack/react-query";
 import styled from "styled-components";
 import { ListProps } from "../interfacce/list-interface";
 import { getCafeList } from "../apis/supabase-api";
+import MapStore from "../stores/map-store";
 import Map from "../components/map";
 import TabBar from "../components/tab-bar";
-import MapStore from "../stores/map-store";
 import List from "../components/list";
 import SearchBox from "../components/search-box";
 
