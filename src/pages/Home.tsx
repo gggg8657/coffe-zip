@@ -7,6 +7,7 @@ import Map from "../components/map";
 import TabBar from "../components/tab-bar";
 import MapStore from "../stores/map-store";
 import List from "../components/list";
+import SearchBox from "../components/search-box";
 
 const Wrapper = styled.div`
     width: 100%;
@@ -55,7 +56,12 @@ const Line = styled.div`
     border-radius: 20px;
 `;
 
-export const revalidate = 0;
+const Search = styled.div`
+    width: 100%;
+    @media (max-width: 1024px) {
+        display: none;
+    }
+`;
 
 const Home = () => {
     const [currentPage, setCurrentPage] = useState(0);
@@ -111,6 +117,9 @@ const Home = () => {
             <Container>
                 <Box>
                     <Line />
+                    <Search>
+                        <SearchBox />
+                    </Search>
                     <List list={paginatedCafeList[currentPage]} />
                     <TabBar
                         handleChangePage={handleChangePage}

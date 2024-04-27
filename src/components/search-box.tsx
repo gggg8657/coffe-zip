@@ -1,5 +1,6 @@
 import { useState } from "react";
 import styled from "styled-components";
+import MapStore from "../stores/map-store";
 
 const SearchForm = styled.form`
     width: 100%;
@@ -35,16 +36,31 @@ const Input = styled.input`
 `;
 
 const SearchBox = () => {
+    const { setLocation } = MapStore();
     const [keyword, setKeyword] = useState("");
+    const handleSearch = (key: string) => {
+        const ps = new kakao.maps.services.Places();
+        function placesSearchCB(
+            data: any[],
+            status: kakao.maps.services.Status
+        ) {
+            if (status === kakao.maps.services.Status.OK) {
+                setLocation([data[0].y, data[0].x]);
+            }
+        }
+        ps.keywordSearch(key, placesSearchCB);
+    };
     const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setKeyword(e.target.value);
     };
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         if (keyword === "") return;
+        handleSearch(keyword);
     };
     const onClickIcon = () => {
         if (keyword === "") return;
+        handleSearch(keyword);
     };
     const onClickCancle = () => {
         setKeyword("");
