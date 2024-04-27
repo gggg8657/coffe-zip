@@ -105,11 +105,11 @@ const Home = () => {
             (position) => {
                 const { latitude, longitude } = position.coords;
                 setLocation([latitude, longitude]);
-            },
-            (error) => {},
-            {
-                enableHighAccuracy: true,
             }
+            // (error) => {},
+            // {
+            //     enableHighAccuracy: true,
+            // }
         );
         //eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
