@@ -64,9 +64,10 @@ const Search = styled.div`
 `;
 
 const Home = () => {
-    const [currentPage, setCurrentPage] = useState(0);
     const { setLocation, location } = MapStore();
+    const [currentPage, setCurrentPage] = useState(0);
 
+    // 카페 데이터 패칭
     const {
         data: cafe_list,
         refetch: refetchCafeList,
@@ -76,6 +77,7 @@ const Home = () => {
         queryFn: async () => getCafeList(location[0], location[1]),
     });
 
+    // 페이지네이션 페이지 만들기 함수
     const paginateList = (list: ListProps[]) => {
         const pages = [];
         for (let i = 0; i < list.length; i += 5)
@@ -83,31 +85,36 @@ const Home = () => {
         return pages;
     };
 
+    // 페이지네이션 전체 페이지 갯수 구하는 함수
     const calculateTotalPages = (totalItems: number) => {
         const total = Math.ceil(totalItems / 5);
         if (total === 0) return total;
         else return total - 1;
     };
 
+    // 페이지네이션 함수 호출
     const paginatedCafeList = cafe_list ? paginateList(cafe_list) : [];
     const totalPage = cafe_list ? calculateTotalPages(cafe_list.length) : 0;
 
+    // 페이지 변경 함수
     const handleChangePage = (page: number) => setCurrentPage(page);
 
+    // 현재 사용자 GPS 좌표 구하는 함수
     useEffect(() => {
         navigator.geolocation.getCurrentPosition(
             (position) => {
                 const { latitude, longitude } = position.coords;
                 setLocation([latitude, longitude]);
+            },
+            (error) => {},
+            {
+                enableHighAccuracy: true,
             }
-            // (error) => {},
-            // {
-            //     enableHighAccuracy: true,
-            // }
         );
         //eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
+    // GPS 좌표가 바뀌면 카페 데이터 재 패칭
     useEffect(() => {
         if (location[0] && location[1]) {
             refetchCafeList();

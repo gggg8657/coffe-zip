@@ -33,11 +33,13 @@ const IconWrapper = styled.div<IconProps>`
 `;
 
 const TabBar: React.FC<PageProps> = ({ handleChangePage, page, totalPage }) => {
+    // 다음 페이지 이동 함수
     const handleClickNext = (page: number) => {
         if (totalPage === page) return;
         else handleChangePage(page + 1);
     };
 
+    // 이전 페이지 이동 함수
     const handleClickPrev = (page: number) => {
         if (page === 0) return;
         else handleChangePage(page - 1);

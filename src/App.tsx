@@ -3,6 +3,7 @@ import styled, { createGlobalStyle } from "styled-components";
 import reset from "styled-reset";
 import Home from "./pages/Home";
 
+// React 페이지 라우터
 const router = createBrowserRouter([
     {
         path: "/",
@@ -10,6 +11,7 @@ const router = createBrowserRouter([
     },
 ]);
 
+// 페이지 전체 공통 CSS
 const GlobalStyles = createGlobalStyle`
   ${reset};
   * {

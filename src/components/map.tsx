@@ -60,6 +60,8 @@ const Map: React.FC<{ list: ListProps[] }> = ({ list }) => {
     useEffect(() => {
         const kakao = window.kakao;
         markers.forEach((marker) => marker.setMap(null));
+
+        // 리스트에 있는 카페 좌표를 마커로 나타내는 함수
         const createMarkers = (items: ListProps[]) => {
             return items.map((item) => {
                 let markerUrl;
@@ -96,13 +98,10 @@ const Map: React.FC<{ list: ListProps[] }> = ({ list }) => {
                     center: new kakao.maps.LatLng(location[0], location[1]),
                     level: 6,
                 };
-                // const initialMarker = new kakao.maps.Marker({
-                //     position: new kakao.maps.LatLng(location[0], location[1]),
-                // });
                 const initialMap = new kakao.maps.Map(container, options);
-                //initialMarker.setMap(initialMap);
                 setMyMap(initialMap);
 
+                // 현재 사용자 위치 구하고 마커로 나타내는 함수
                 navigator.geolocation.getCurrentPosition((position) => {
                     const { latitude, longitude } = position.coords;
                     const current = new kakao.maps.LatLng(latitude, longitude);
@@ -129,6 +128,7 @@ const Map: React.FC<{ list: ListProps[] }> = ({ list }) => {
         //eslint-disable-next-line react-hooks/exhaustive-deps
     }, [list]);
 
+    // 현재 사용자 위치로 이동하는 함수
     const onClickLocate = () => {
         if (myMap) {
             navigator.geolocation.getCurrentPosition((position) => {

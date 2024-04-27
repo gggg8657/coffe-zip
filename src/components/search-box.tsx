@@ -70,6 +70,8 @@ const SearchBox = () => {
     const [placeList, setPlaceList] = useState<
         kakao.maps.services.PlacesSearchResultItem[]
     >([]);
+
+    // 카카오 지도 검색 기능 함수
     const handleSearch = async (key: string) => {
         if (key === "") return setPlaceList([]);
         const ps = new kakao.maps.services.Places();
@@ -83,10 +85,14 @@ const SearchBox = () => {
         };
         ps.keywordSearch(key, placesSearchCB);
     };
+
+    // 검색어 바뀔 때 마다 바로 검색하는 함수
     const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setKeyword(e.target.value);
         handleSearch(e.target.value);
     };
+
+    // 장소 리스트 선택 시 좌표 설정 및 이동 함수
     const onClickPlace = (lat: string, lng: string, name: string) => {
         if (placeList) {
             setKeyword(name);
@@ -94,6 +100,8 @@ const SearchBox = () => {
         }
         setLocation([parseFloat(lat), parseFloat(lng)]);
     };
+
+    // 검색어 한번에 지우는 함수
     const onClickCancle = () => {
         setKeyword("");
     };
