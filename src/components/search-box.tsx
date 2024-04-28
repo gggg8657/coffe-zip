@@ -97,17 +97,16 @@ const SearchBox = () => {
 
     // 장소 리스트 선택 시 좌표 설정 및 이동 함수
     const onClickPlace = async (lat: string, lng: string, name: string) => {
-        if (placeList.length >= 0) {
-            setKeyword(name);
-            setPlaceList([]);
-        }
         setLocation([parseFloat(lat), parseFloat(lng)]);
+        setKeyword(name);
+        handleSearch("");
     };
 
     // 검색어 한번에 지우는 함수
     const onClickCancle = () => {
         setKeyword("");
     };
+
     return (
         <Wrapper>
             <InputWrapper>

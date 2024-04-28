@@ -54,6 +54,9 @@ const RowBox = styled.div`
     display: flex;
     align-items: center;
     gap: 24px;
+    &.title {
+        gap: 8px;
+    }
 `;
 
 const NoItem = styled.div`
@@ -66,17 +69,16 @@ const NoItem = styled.div`
     margin-top: 20px;
 `;
 
-const AlldayIcon = styled.div`
-    width: 20px;
-    height: 20px;
-    border-radius: 20px;
-    background-color: #000000;
-`;
+const AlldayIcon = styled.div``;
 
-const List: React.FC<{ list: ListProps[]; isLoading: boolean }> = ({
-    list,
-    isLoading,
-}) => {
+const List: React.FC<{
+    list: ListProps[];
+    isLoading: boolean;
+}> = ({ list, isLoading }) => {
+    const handleClickList = (cafe: string, lat: number, lng: number) => {
+        console.log(cafe, lat, lng);
+    };
+
     return (
         <Wrapper>
             <Titie>
@@ -86,10 +88,25 @@ const List: React.FC<{ list: ListProps[]; isLoading: boolean }> = ({
                 <SkeletonUI />
             ) : list ? (
                 list.map((item) => (
-                    <Item key={item.name}>
-                        <RowBox>
+                    <Item
+                        key={item.name}
+                        onClick={() =>
+                            handleClickList(item.name, item.lat, item.lng)
+                        }
+                    >
+                        <RowBox className="title">
                             <BoldText>{item.name}</BoldText>
-                            {item.closed === null && <AlldayIcon />}
+                            {item.closed === null && (
+                                <AlldayIcon>
+                                    <img
+                                        className="cafe"
+                                        alt="cafe-icon"
+                                        src="/svg/cafe.svg"
+                                        width="24"
+                                        height="auto"
+                                    />
+                                </AlldayIcon>
+                            )}
                         </RowBox>
                         <RowBox>
                             {item.closed !== null && <div>~ {item.closed}</div>}

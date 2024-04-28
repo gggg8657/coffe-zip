@@ -66,15 +66,18 @@ const Map: React.FC<{ list: ListProps[] }> = ({ list }) => {
             return items.map((item) => {
                 let markerUrl;
                 if (item.unmanned === true) {
-                    markerUrl = "/svg/unman.svg";
+                    // 무인
+                    markerUrl = "/svg/pin.svg";
                 } else {
+                    // 24시간
                     if (item.closed === null) {
-                        markerUrl = "/svg/allday.svg";
+                        markerUrl = "/svg/pin.svg";
                     } else {
-                        markerUrl = "/svg/parttime.svg";
+                        // 24시간 X
+                        markerUrl = "/svg/pin.svg";
                     }
                 }
-                const markerSize = new kakao.maps.Size(16, 16);
+                const markerSize = new kakao.maps.Size(28, 36);
                 const markerImage = new kakao.maps.MarkerImage(
                     markerUrl,
                     markerSize
@@ -87,6 +90,7 @@ const Map: React.FC<{ list: ListProps[] }> = ({ list }) => {
                     position: markerPosition,
                     title: item.name,
                     image: markerImage,
+                    clickable: true,
                 });
             });
         };
@@ -100,7 +104,6 @@ const Map: React.FC<{ list: ListProps[] }> = ({ list }) => {
                 };
                 const initialMap = new kakao.maps.Map(container, options);
                 setMyMap(initialMap);
-
                 // 현재 사용자 위치 구하고 마커로 나타내는 함수
                 navigator.geolocation.getCurrentPosition((position) => {
                     const { latitude, longitude } = position.coords;

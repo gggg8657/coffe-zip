@@ -101,16 +101,10 @@ const Home = () => {
 
     // 현재 사용자 GPS 좌표 구하는 함수
     useEffect(() => {
-        navigator.geolocation.getCurrentPosition(
-            (position) => {
-                const { latitude, longitude } = position.coords;
-                setLocation([latitude, longitude]);
-            }
-            // (error) => {},
-            // {
-            //     enableHighAccuracy: true,
-            // }
-        );
+        navigator.geolocation.getCurrentPosition((position) => {
+            const { latitude, longitude } = position.coords;
+            setLocation([latitude, longitude]);
+        });
         //eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
@@ -118,6 +112,7 @@ const Home = () => {
     useEffect(() => {
         if (location[0] && location[1]) {
             refetchCafeList();
+            setCurrentPage(0);
         }
         //eslint-disable-next-line react-hooks/exhaustive-deps
     }, [location]);
