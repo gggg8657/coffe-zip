@@ -38,7 +38,7 @@ const IconWrapper = styled.div`
     border-radius: 100%;
     padding: 10px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
-    z-index: 999;
+    z-index: 998;
     &:hover {
         opacity: 0.8;
     }
@@ -53,7 +53,7 @@ const IconWrapper = styled.div`
 `;
 
 const Map: React.FC<{ list: ListProps[] }> = ({ list }) => {
-    const { location } = MapStore();
+    const { location, selected } = MapStore();
     const [myMap, setMyMap] = useState<kakao.maps.Map | null>(null);
     const [markers, setMarkers] = useState<kakao.maps.Marker[]>([]);
 
@@ -86,6 +86,7 @@ const Map: React.FC<{ list: ListProps[] }> = ({ list }) => {
                     item.lat,
                     item.lng
                 );
+
                 return new kakao.maps.Marker({
                     position: markerPosition,
                     title: item.name,
@@ -100,7 +101,7 @@ const Map: React.FC<{ list: ListProps[] }> = ({ list }) => {
             if (container) {
                 const options = {
                     center: new kakao.maps.LatLng(location[0], location[1]),
-                    level: 5,
+                    level: 4,
                 };
                 const initialMap = new kakao.maps.Map(container, options);
                 setMyMap(initialMap);
@@ -125,6 +126,33 @@ const Map: React.FC<{ list: ListProps[] }> = ({ list }) => {
                     const CafeMarkers = createMarkers(list);
                     setMarkers(CafeMarkers);
                     CafeMarkers.forEach((marker) => marker.setMap(initialMap));
+                }
+
+                if (initialMap && selected[0] !== "") {
+                    var iwContent =
+                        '<div style="position: relative; background-color: #ffffff; border-radius: 10px; border: 1px solid #023048; width: 180px; height: 85px; display: flex; flex-direction: column; gap: 4px; padding: 8px; color: #023048; font-size: 14px; font-weight: bold;">' +
+                        `<div>${selected[0]}</div>` +
+                        `<div>${selected[1]}</div>` +
+                        '<div style="position: absolute; bottom: 8px; right: 8px; display: flex; gap: 8px; font-size: 16px; font-weight: bold; color: #000000;">' +
+                        "<div>주소 공유</div>" +
+                        "<div>주소 복사</div>" +
+                        "</div>" +
+                        "</div>";
+                    var iwPosition = new kakao.maps.LatLng(
+                        selected[2],
+                        selected[3]
+                    );
+                    var infowindow = new kakao.maps.InfoWindow({
+                        map: initialMap,
+                        position: iwPosition,
+                        content: iwContent,
+                        zIndex: 999,
+                    });
+                    initialMap.setCenter(iwPosition);
+                    // 클로저를 사용하여 클릭 이벤트 처리
+                    kakao.maps.event.addListener(initialMap, "click", () =>
+                        infowindow.close()
+                    );
                 }
             }
         });

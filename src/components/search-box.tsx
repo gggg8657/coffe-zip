@@ -68,15 +68,20 @@ const SearchItem = styled.div`
 `;
 
 const SearchBox = () => {
-    const { setLocation } = MapStore();
+    const { setLocation, setSelected } = MapStore();
     const [keyword, setKeyword] = useState("");
     const [placeList, setPlaceList] = useState<
         kakao.maps.services.PlacesSearchResultItem[]
     >([]);
+    const [open, setOpen] = useState(false);
 
     // 카카오 지도 검색 기능 함수
     const handleSearch = async (key: string) => {
-        if (key === "") return setPlaceList([]);
+        if (key === "") {
+            setPlaceList([]);
+            setOpen(false);
+            return;
+        }
         const ps = new kakao.maps.services.Places();
         const placesSearchCB = (
             data: kakao.maps.services.PlacesSearchResultItem[],
@@ -90,21 +95,24 @@ const SearchBox = () => {
     };
 
     // 검색어 바뀔 때 마다 바로 검색하는 함수
-    const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const onChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
         setKeyword(e.target.value);
         handleSearch(e.target.value);
+        setOpen(true);
     };
 
     // 장소 리스트 선택 시 좌표 설정 및 이동 함수
     const onClickPlace = async (lat: string, lng: string, name: string) => {
         setLocation([parseFloat(lat), parseFloat(lng)]);
+        setSelected(["", "", 0, 0]);
         setKeyword(name);
-        handleSearch("");
+        setOpen(false);
     };
 
     // 검색어 한번에 지우는 함수
     const onClickCancle = () => {
         setKeyword("");
+        setOpen(false);
     };
 
     return (
@@ -135,22 +143,23 @@ const SearchBox = () => {
                 )}
             </InputWrapper>
             <SearchList>
-                {placeList.map((place, index) => (
-                    <SearchItem
-                        key={index}
-                        onClick={() =>
-                            onClickPlace(place.y, place.x, place.place_name)
-                        }
-                    >
-                        <div>{place.place_name}</div>
-                        <img
-                            alt="arrow-icon"
-                            src="/svg/arrow.svg"
-                            height="20"
-                            width="auto"
-                        />
-                    </SearchItem>
-                ))}
+                {open &&
+                    placeList.map((place, index) => (
+                        <SearchItem
+                            key={index}
+                            onClick={() =>
+                                onClickPlace(place.y, place.x, place.place_name)
+                            }
+                        >
+                            <div>{place.place_name}</div>
+                            <img
+                                alt="arrow-icon"
+                                src="/svg/arrow.svg"
+                                height="20"
+                                width="auto"
+                            />
+                        </SearchItem>
+                    ))}
             </SearchList>
         </Wrapper>
     );

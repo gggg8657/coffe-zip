@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { ListProps } from "../interfacce/list-interface";
 import SkeletonUI from "./skeleton-ui";
+import MapStore from "../stores/map-store";
 
 const Wrapper = styled.div`
     display: flex;
@@ -75,8 +76,14 @@ const List: React.FC<{
     list: ListProps[];
     isLoading: boolean;
 }> = ({ list, isLoading }) => {
-    const handleClickList = (cafe: string, lat: number, lng: number) => {
-        console.log(cafe, lat, lng);
+    const { setSelected } = MapStore();
+    const handleClickList = (
+        cafe: string,
+        address: string,
+        lat: number,
+        lng: number
+    ) => {
+        setSelected([cafe, address, lat, lng]);
     };
 
     return (
@@ -91,7 +98,12 @@ const List: React.FC<{
                     <Item
                         key={item.name}
                         onClick={() =>
-                            handleClickList(item.name, item.lat, item.lng)
+                            handleClickList(
+                                item.name,
+                                item.address,
+                                item.lat,
+                                item.lng
+                            )
                         }
                     >
                         <RowBox className="title">
