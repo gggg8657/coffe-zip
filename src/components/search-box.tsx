@@ -44,7 +44,7 @@ const Input = styled.input`
     width: 100%;
     outline: none;
     border-radius: 50px;
-    box-shadow: 0px 1px 0px #000000;
+    box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.2);
 `;
 
 const SearchList = styled.div`
@@ -55,6 +55,7 @@ const SearchList = styled.div`
     display: flex;
     flex-direction: column;
     border-radius: 20px;
+    box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.2);
 `;
 
 const SearchItem = styled.div`

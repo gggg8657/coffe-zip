@@ -129,30 +129,43 @@ const Map: React.FC<{ list: ListProps[] }> = ({ list }) => {
                 }
 
                 if (initialMap && selected[0] !== "") {
+                    const copyAddress = async () => {
+                        await navigator.clipboard.writeText(selected[1]);
+                        alert("클립보드에 주소가 복사되었습니다.");
+                    };
                     const iwContent =
-                        '<div style="position: relative; background-color: #ffffff; border-radius: 10px; border: 1px solid #023048; width: 180px; height: 85px; display: flex; flex-direction: column; gap: 4px; padding: 8px; color: #023048; font-size: 14px; font-weight: bold;">' +
+                        '<div style="position: relative; background-color: #ffffff; border-radius: 10px; border: 1px solid #023048; width: 200px; height: 105px; display: flex; flex-direction: column; gap: 4px; padding: 8px; color: #023048; font-size: 14px; font-weight: bold; box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.2);">' +
                         `<div>${selected[0]}</div>` +
-                        `<div>${selected[1]}</div>` +
+                        `<div style="white-space: normal;">${selected[1]}</div>` +
                         '<div style="position: absolute; bottom: 8px; right: 8px; display: flex; gap: 8px; font-size: 16px; font-weight: bold; color: #000000;">' +
                         "<div>주소 공유</div>" +
-                        "<div>주소 복사</div>" +
+                        `<div class="copyBtn" style="cursor: pointer;" onclick="copyAddress">주소 복사</div>` +
                         "</div>" +
                         "</div>";
                     const iwPosition = new kakao.maps.LatLng(
                         selected[2],
                         selected[3]
                     );
-                    const infowindow = new kakao.maps.InfoWindow({
+                    const infowindow = new kakao.maps.CustomOverlay({
                         map: initialMap,
                         position: iwPosition,
                         content: iwContent,
+                        clickable: true,
                         zIndex: 999,
                     });
+                    infowindow.setMap(initialMap);
                     initialMap.setCenter(iwPosition);
-                    // 클로저를 사용하여 클릭 이벤트 처리
                     kakao.maps.event.addListener(initialMap, "click", () =>
-                        infowindow.close()
+                        infowindow.setMap(null)
                     );
+                    const copyBtns = document.querySelectorAll(".copyBtn");
+                    if (copyBtns) {
+                        copyBtns.forEach((btn) => {
+                            btn.addEventListener("click", () => {
+                                copyAddress();
+                            });
+                        });
+                    }
                 }
             }
         });

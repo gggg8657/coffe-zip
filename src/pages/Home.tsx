@@ -28,7 +28,7 @@ const Container = styled.div`
     border-radius: 20px 20px 0px 0px;
     padding: 4px 0px;
     @media (min-width: 1025px) {
-        width: 20%;
+        width: 380px;
         height: 100%;
         top: 0;
         left: 0;
@@ -64,7 +64,7 @@ const Search = styled.div`
 `;
 
 const Home = () => {
-    const { setLocation, location } = MapStore();
+    const { setLocation, location, setSelected } = MapStore();
     const [currentPage, setCurrentPage] = useState(0);
 
     // 카페 데이터 패칭
@@ -97,7 +97,10 @@ const Home = () => {
     const totalPage = cafe_list ? calculateTotalPages(cafe_list.length) : 0;
 
     // 페이지 변경 함수
-    const handleChangePage = (page: number) => setCurrentPage(page);
+    const handleChangePage = (page: number) => {
+        setCurrentPage(page);
+        setSelected(["", "", 0, 0]);
+    };
 
     // 현재 사용자 GPS 좌표 구하는 함수
     useEffect(() => {
