@@ -129,7 +129,7 @@ const Map: React.FC<{ list: ListProps[] }> = ({ list }) => {
                 }
 
                 if (initialMap && selected[0] !== "") {
-                    var iwContent =
+                    const iwContent =
                         '<div style="position: relative; background-color: #ffffff; border-radius: 10px; border: 1px solid #023048; width: 180px; height: 85px; display: flex; flex-direction: column; gap: 4px; padding: 8px; color: #023048; font-size: 14px; font-weight: bold;">' +
                         `<div>${selected[0]}</div>` +
                         `<div>${selected[1]}</div>` +
@@ -138,11 +138,11 @@ const Map: React.FC<{ list: ListProps[] }> = ({ list }) => {
                         "<div>주소 복사</div>" +
                         "</div>" +
                         "</div>";
-                    var iwPosition = new kakao.maps.LatLng(
+                    const iwPosition = new kakao.maps.LatLng(
                         selected[2],
                         selected[3]
                     );
-                    var infowindow = new kakao.maps.InfoWindow({
+                    const infowindow = new kakao.maps.InfoWindow({
                         map: initialMap,
                         position: iwPosition,
                         content: iwContent,
