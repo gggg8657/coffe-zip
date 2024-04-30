@@ -57,6 +57,9 @@ const KakaoMap: React.FC<{ list: ListProps[] }> = ({ list }) => {
     const { location, selected } = MapStore();
     const [myMap, setMyMap] = useState<kakao.maps.Map | null>(null);
     const [markers, setMarkers] = useState<kakao.maps.Marker[]>([]);
+    const [ctOverlay, setCtOverlay] = useState<kakao.maps.CustomOverlay | null>(
+        null
+    );
 
     // 최초 로딩 시 지도 생성
     useEffect(() => {
@@ -97,7 +100,7 @@ const KakaoMap: React.FC<{ list: ListProps[] }> = ({ list }) => {
     useEffect(() => {
         markers.forEach((marker) => marker.setMap(null));
 
-        // 리스트에 있는 카페 좌표를 마커로 나타내는 함수
+        // 리스트에 있는 카페 좌표를 마커로 나타내는 함수(클릭 이벤트 발생 이전 커스텀 오버레이 삭제해야 함)
         const createMarkers = (items: ListProps[], map: kakao.maps.Map) => {
             return items.map((item) => {
                 let markerUrl;
@@ -122,23 +125,21 @@ const KakaoMap: React.FC<{ list: ListProps[] }> = ({ list }) => {
                     item.lat,
                     item.lng
                 );
-
                 const marker = new kakao.maps.Marker({
                     position: markerPosition,
                     image: markerImage,
+                    title: item.name,
                     clickable: true,
                 });
-
                 const overlay = CustomOverlay(
                     item.name,
                     item.address,
                     item.lat,
                     item.lng
                 );
-                map.setCenter(markerPosition);
                 kakao.maps.event.addListener(marker, "click", () => {
+                    map.setCenter(markerPosition);
                     overlay.setMap(map);
-                    map.setCenter(overlay.getPosition());
                 });
                 kakao.maps.event.addListener(map, "click", () =>
                     overlay.setMap(null)
@@ -162,6 +163,7 @@ const KakaoMap: React.FC<{ list: ListProps[] }> = ({ list }) => {
                 CafeMarkers.forEach((marker) => marker.setMap(myMap));
             }
             if (selected[0] !== "") {
+                if (ctOverlay) ctOverlay.setMap(null);
                 const copyAddress = async () => {
                     await navigator.clipboard.writeText(selected[1]);
                     alert("클립보드에 주소가 복사되었습니다.");
@@ -174,6 +176,7 @@ const KakaoMap: React.FC<{ list: ListProps[] }> = ({ list }) => {
                 );
                 overlay.setMap(myMap);
                 myMap.setCenter(overlay.getPosition());
+                setCtOverlay(overlay);
                 kakao.maps.event.addListener(myMap, "click", () =>
                     overlay.setMap(null)
                 );
