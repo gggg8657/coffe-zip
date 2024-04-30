@@ -1,7 +1,9 @@
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import styled, { createGlobalStyle } from "styled-components";
 import reset from "styled-reset";
-import Home from "./pages/Home";
+import { lazy } from "react";
+
+const Home = lazy(() => import("./pages/Home"));
 
 // React 페이지 라우터
 const router = createBrowserRouter([

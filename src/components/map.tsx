@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { ListProps } from "../interfacce/list-interface";
 import MapStore from "../stores/map-store";
 import SearchBox from "./search-box";
+import CustomOverlay from "./custom-overlay";
 
 const Wrapper = styled.div`
     position: relative;
@@ -62,22 +63,22 @@ const Map: React.FC<{ list: ListProps[] }> = ({ list }) => {
         markers.forEach((marker) => marker.setMap(null));
 
         // 리스트에 있는 카페 좌표를 마커로 나타내는 함수
-        const createMarkers = (items: ListProps[]) => {
+        const createMarkers = (items: ListProps[], map: kakao.maps.Map) => {
             return items.map((item) => {
                 let markerUrl;
                 if (item.unmanned === true) {
                     // 무인
-                    markerUrl = "/svg/pin.svg";
+                    markerUrl = "/svg/allday.svg";
                 } else {
                     // 24시간
                     if (item.closed === null) {
                         markerUrl = "/svg/pin.svg";
                     } else {
                         // 24시간 X
-                        markerUrl = "/svg/pin.svg";
+                        markerUrl = "/svg/parttime.svg";
                     }
                 }
-                const markerSize = new kakao.maps.Size(28, 36);
+                const markerSize = new kakao.maps.Size(36, 46);
                 const markerImage = new kakao.maps.MarkerImage(
                     markerUrl,
                     markerSize
@@ -87,12 +88,29 @@ const Map: React.FC<{ list: ListProps[] }> = ({ list }) => {
                     item.lng
                 );
 
-                return new kakao.maps.Marker({
+                const marker = new kakao.maps.Marker({
                     position: markerPosition,
                     title: item.name,
                     image: markerImage,
                     clickable: true,
                 });
+
+                const overlay = CustomOverlay(
+                    item.name,
+                    item.address,
+                    item.lat,
+                    item.lng
+                );
+
+                kakao.maps.event.addListener(marker, "click", () => {
+                    overlay.setMap(map);
+                    map.setCenter(overlay.getPosition());
+                });
+                kakao.maps.event.addListener(map, "click", () =>
+                    overlay.setMap(null)
+                );
+
+                return marker;
             });
         };
 
@@ -100,11 +118,21 @@ const Map: React.FC<{ list: ListProps[] }> = ({ list }) => {
             const container = document.getElementById("map");
             if (container) {
                 const options = {
-                    center: new kakao.maps.LatLng(location[0], location[1]),
+                    center: new kakao.maps.LatLng(
+                        37.570227990912244,
+                        126.98315081716676
+                    ),
                     level: 4,
                 };
                 const initialMap = new kakao.maps.Map(container, options);
                 setMyMap(initialMap);
+                if (location[0] && location[1]) {
+                    const newCenter = new kakao.maps.LatLng(
+                        location[0],
+                        location[1]
+                    );
+                    initialMap.setCenter(newCenter);
+                }
                 // 현재 사용자 위치 구하고 마커로 나타내는 함수
                 navigator.geolocation.getCurrentPosition((position) => {
                     const { latitude, longitude } = position.coords;
@@ -123,7 +151,7 @@ const Map: React.FC<{ list: ListProps[] }> = ({ list }) => {
                 });
 
                 if (list) {
-                    const CafeMarkers = createMarkers(list);
+                    const CafeMarkers = createMarkers(list, initialMap);
                     setMarkers(CafeMarkers);
                     CafeMarkers.forEach((marker) => marker.setMap(initialMap));
                 }
@@ -133,30 +161,17 @@ const Map: React.FC<{ list: ListProps[] }> = ({ list }) => {
                         await navigator.clipboard.writeText(selected[1]);
                         alert("클립보드에 주소가 복사되었습니다.");
                     };
-                    const iwContent =
-                        '<div style="position: relative; background-color: #ffffff; border-radius: 10px; border: 1px solid #023048; width: 200px; height: 105px; display: flex; flex-direction: column; gap: 4px; padding: 8px; color: #023048; font-size: 14px; font-weight: bold; box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.2);">' +
-                        `<div>${selected[0]}</div>` +
-                        `<div style="white-space: normal;">${selected[1]}</div>` +
-                        '<div style="position: absolute; bottom: 8px; right: 8px; display: flex; gap: 8px; font-size: 16px; font-weight: bold; color: #000000;">' +
-                        "<div>주소 공유</div>" +
-                        `<div class="copyBtn" style="cursor: pointer;" onclick="copyAddress">주소 복사</div>` +
-                        "</div>" +
-                        "</div>";
-                    const iwPosition = new kakao.maps.LatLng(
+                    const overlay = CustomOverlay(
+                        selected[0],
+                        selected[1],
                         selected[2],
                         selected[3]
                     );
-                    const infowindow = new kakao.maps.CustomOverlay({
-                        map: initialMap,
-                        position: iwPosition,
-                        content: iwContent,
-                        clickable: true,
-                        zIndex: 999,
-                    });
-                    infowindow.setMap(initialMap);
-                    initialMap.setCenter(iwPosition);
+
+                    overlay.setMap(initialMap);
+                    initialMap.setCenter(overlay.getPosition());
                     kakao.maps.event.addListener(initialMap, "click", () =>
-                        infowindow.setMap(null)
+                        overlay.setMap(null)
                     );
                     const copyBtns = document.querySelectorAll(".copyBtn");
                     if (copyBtns) {

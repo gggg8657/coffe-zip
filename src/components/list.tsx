@@ -45,7 +45,7 @@ const BoldText = styled.span`
         margin-right: 4px;
     }
     &.unmanned {
-        background-color: #f6d6d5;
+        background-color: #ffece3;
         border-radius: 20px;
         padding: 4px 8px;
     }
