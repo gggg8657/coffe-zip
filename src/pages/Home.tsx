@@ -4,10 +4,10 @@ import styled from "styled-components";
 import { ListProps } from "../interfacce/list-interface";
 import { getCafeList } from "../apis/supabase-api";
 import MapStore from "../stores/map-store";
-import Map from "../components/map";
 import TabBar from "../components/tab-bar";
 import List from "../components/list";
 import SearchBox from "../components/search-box";
+import KakaoMap from "../components/kakao-map";
 
 const Wrapper = styled.div`
     width: 100%;
@@ -122,7 +122,7 @@ const Home = () => {
 
     return (
         <Wrapper>
-            <Map list={paginatedCafeList[currentPage]} />
+            <KakaoMap list={paginatedCafeList[currentPage]} />
             <Container>
                 <Box>
                     <Line />
