@@ -60,6 +60,7 @@ const KakaoMap: React.FC<{ list: ListProps[] }> = ({ list }) => {
     const [ctOverlay, setCtOverlay] = useState<kakao.maps.CustomOverlay | null>(
         null
     );
+    const kakao = window.kakao;
 
     // 최초 로딩 시 지도 생성
     useEffect(() => {

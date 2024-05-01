@@ -19,8 +19,8 @@ const CustomOverlay = (
             "</div>";
     }
 
-    const coPosition = new kakao.maps.LatLng(lat, lng);
-    const overlay = new kakao.maps.CustomOverlay({
+    const coPosition = new window.kakao.maps.LatLng(lat, lng);
+    const overlay = new window.kakao.maps.CustomOverlay({
         position: coPosition,
         content: coContent,
         clickable: true,
