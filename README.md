@@ -1,4 +1,4 @@
-# 🗺️ 서울 내에 있는 24시간/무인 카페 찾기 서비스 / 커피24
+# 🗺️ 서울에 있는 24시간/무인 카페 찾기 서비스 / 카페 찾는 부엉이
 
 ## ⚙️ 요구 사항(Requirements)
 
@@ -16,6 +16,9 @@ $ yan dev
 
 ## 🖥️ 서비스 소개(Introduction)
 
+-   서울 내 야간 영업 정보를 제공하는 웹/앱 서비스입니다.
+-   야간 운영은 자정 이후 또는 24시간 영업하는 카페를 의미합니다.
+-   사용자에 GPS 좌표를 기반으로, 반경 2km 내에 있는 카페들의 목록을 제공합니다.
 
 ## 🗓️ 개발 기간(Development Period)
 
@@ -30,8 +33,8 @@ $ yan dev
 
 ## 개인(본인) 기여도
 
-- **1인 개발**
-- **디자인 참여**
+-   **1인 개발**
+-   **디자인 참여**
 
 ## 📚 기술 스택(Stacks)
 
@@ -44,11 +47,11 @@ $ yan dev
 </div>
 
 ### 💫 Config
+
 <div>
   <img src="https://img.shields.io/badge/Yarn-2C8EBB?style=for-the-badge&logo=yarn&logoColor=white">
   <img src="https://img.shields.io/badge/vite-646CFF?style=for-the-badge&logo=vite&logoColor=white">
 </div>
-
 
 ### 🛠️ 개발 기술(Development)
 
@@ -100,3 +103,13 @@ $ yan dev
 -   핀/리스트에서 클릭 시 카페 이름과 주소를 확인할 수 있는 상세보기 창 기능
 -   상세보기 창에서 주소 복사 기능으로 클립보드에 카페 주소 복사 기능 구현
 -   상세보기 창에서 주소 공유 기능으로 현재 카페 정보를 다른 사람에게 공유할 수 있는 기능 구현
+
+## 🔥 트러블 슈팅(Trouble Shooting)
+
+-   React Hook 중 useEffect를 사용해 지도를 화면에 띄우는 과정에서 의존성 배열에 지도에 표시할 카페 리스트를 넣다 보니 지도가 계속 재생성 되는 것을 확인하였다.(지도 줌 인, 줌 아웃 중 지속해서 이전에 생성된 지도가 나타나는 오류 발생)
+
+-   결국 의존성 배열을 제거하고 최초 마운트 시 한 개의 지도만 생성하고 이를 React Hook 중 useState로 관리하여 한 개의 지도만 조작할 수 있게 하였다. 또한, React에서 제공하는 StrictMode로 useEffect가 마운트 시 두 번 발생하는 것을 Strict 모드를 제거하여 오직 마운트 시 한 번만 작동하게 하였다.
+
+-   현재 프로젝트 구조를 살펴보면 단일 페이지 Home에서 다른 컴포넌트를 import 하여 사용하고 있다. 이때 Home 컴포넌트 내에서 KakaoMap 컴포넌트와 List 컴포넌트가 존재하는데 List 컴포넌트에서 이벤트의 대한 작동을 KakaoMap 컴포넌트에서 하려다 보니 List->Home->KakaoMap 컴포넌트 순으로 Callback 함수와 props 전달이 계속 일어난다.
+
+-   결국 zustand를 사용해서 List 컴포넌트에서 이벤트를 발생했을 때 데이터를 담아주고 이를 KakaoMap 컴포넌트에서 중앙 저장소에 접근하여 이를 활용하게 바꿨다.
