@@ -63,6 +63,23 @@ const Search = styled.div`
     }
 `;
 
+const Logo = styled.div`
+    @media (max-width: 1024px) {
+        display: none;
+    }
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 0px 20px;
+    margin-top: 40px;
+`;
+
+const LogoTitle = styled.div`
+    font-size: 1.6rem;
+    font-weight: bold;
+    color: #0a0b10;
+`;
+
 const Home = () => {
     const { setLocation, location, setSelected } = MapStore();
     const [currentPage, setCurrentPage] = useState(0);
@@ -126,6 +143,18 @@ const Home = () => {
             <Container>
                 <Box>
                     <Line />
+                    <Logo>
+                        <div>
+                            <img
+                                className="logo"
+                                alt="logo-icon"
+                                src="/webp/logo.webp"
+                                width="48"
+                                height="48"
+                            />
+                        </div>
+                        <LogoTitle>카페 찾는 부엉이</LogoTitle>
+                    </Logo>
                     <Search>
                         <SearchBox />
                     </Search>

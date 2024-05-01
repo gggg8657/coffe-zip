@@ -70,8 +70,6 @@ const NoItem = styled.div`
     margin-top: 20px;
 `;
 
-const AlldayIcon = styled.div``;
-
 const List: React.FC<{
     list: ListProps[];
     isLoading: boolean;
@@ -109,7 +107,7 @@ const List: React.FC<{
                         <RowBox className="title">
                             <BoldText>{item.name}</BoldText>
                             {item.closed === null && (
-                                <AlldayIcon>
+                                <div>
                                     <img
                                         className="cafe"
                                         alt="cafe-icon"
@@ -117,7 +115,7 @@ const List: React.FC<{
                                         width="24"
                                         height="auto"
                                     />
-                                </AlldayIcon>
+                                </div>
                             )}
                         </RowBox>
                         <RowBox>

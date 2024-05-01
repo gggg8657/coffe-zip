@@ -71,7 +71,7 @@ const KakaoMap: React.FC<{ list: ListProps[] }> = ({ list }) => {
                         37.570227990912244,
                         126.98315081716676
                     ),
-                    level: 4,
+                    level: 6,
                 };
                 const initialMap = new kakao.maps.Map(container, options);
                 setMyMap(initialMap);
@@ -99,6 +99,7 @@ const KakaoMap: React.FC<{ list: ListProps[] }> = ({ list }) => {
     // 새로운 카페 리스트를 받아올 때의 지도 작업
     useEffect(() => {
         markers.forEach((marker) => marker.setMap(null));
+        if (ctOverlay) ctOverlay.setMap(null);
 
         // 리스트에 있는 카페 좌표를 마커로 나타내는 함수(클릭 이벤트 발생 이전 커스텀 오버레이 삭제해야 함)
         const createMarkers = (items: ListProps[], map: kakao.maps.Map) => {
@@ -116,7 +117,7 @@ const KakaoMap: React.FC<{ list: ListProps[] }> = ({ list }) => {
                         markerUrl = "/svg/parttime.svg";
                     }
                 }
-                const markerSize = new kakao.maps.Size(36, 46);
+                const markerSize = new kakao.maps.Size(50, 64);
                 const markerImage = new kakao.maps.MarkerImage(
                     markerUrl,
                     markerSize
@@ -135,13 +136,13 @@ const KakaoMap: React.FC<{ list: ListProps[] }> = ({ list }) => {
                     item.name,
                     item.address,
                     item.lat,
-                    item.lng
+                    item.lng,
+                    true
                 );
-                kakao.maps.event.addListener(marker, "click", () => {
-                    map.setCenter(markerPosition);
+                kakao.maps.event.addListener(marker, "mouseover", () => {
                     overlay.setMap(map);
                 });
-                kakao.maps.event.addListener(map, "click", () =>
+                kakao.maps.event.addListener(marker, "mouseout", () =>
                     overlay.setMap(null)
                 );
 
@@ -150,20 +151,12 @@ const KakaoMap: React.FC<{ list: ListProps[] }> = ({ list }) => {
         };
 
         if (myMap) {
-            if (location[0] && location[1]) {
-                const newCenter = new kakao.maps.LatLng(
-                    location[0],
-                    location[1]
-                );
-                myMap.setCenter(newCenter);
-            }
             if (list) {
                 const CafeMarkers = createMarkers(list, myMap);
                 setMarkers(CafeMarkers);
                 CafeMarkers.forEach((marker) => marker.setMap(myMap));
             }
             if (selected[0] !== "") {
-                if (ctOverlay) ctOverlay.setMap(null);
                 const copyAddress = async () => {
                     await navigator.clipboard.writeText(selected[1]);
                     alert("클립보드에 주소가 복사되었습니다.");
@@ -172,7 +165,8 @@ const KakaoMap: React.FC<{ list: ListProps[] }> = ({ list }) => {
                     selected[0],
                     selected[1],
                     selected[2],
-                    selected[3]
+                    selected[3],
+                    false
                 );
                 overlay.setMap(myMap);
                 myMap.setCenter(overlay.getPosition());
@@ -192,6 +186,14 @@ const KakaoMap: React.FC<{ list: ListProps[] }> = ({ list }) => {
         }
         //eslint-disable-next-line react-hooks/exhaustive-deps
     }, [list]);
+
+    // 최초 지도가 생성된 이후에 중심 좌표 현재 사용자 위치로 이동
+    useEffect(() => {
+        if (location[0] && location[1] && myMap) {
+            const newCenter = new kakao.maps.LatLng(location[0], location[1]);
+            myMap.setCenter(newCenter);
+        }
+    }, [myMap, location]);
 
     // 현재 사용자 위치로 이동하는 함수
     const onClickLocate = () => {

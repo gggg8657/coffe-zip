@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 import MapStore from "../stores/map-store";
 
@@ -32,7 +32,6 @@ const InputWrapper = styled.div`
 `;
 
 const Input = styled.input`
-    cursor: pointer;
     font-size: 1rem;
     font-family: "Pretendard";
     background-color: #ffffff;
@@ -115,6 +114,18 @@ const SearchBox = () => {
         setKeyword("");
         setOpen(false);
     };
+
+    const handleClickSearchBox = (e: MouseEvent) => {
+        const isFocus = (e.target as HTMLElement).closest("div")?.dataset.id;
+        isFocus ? setOpen(true) : setOpen(false);
+    };
+
+    useEffect(() => {
+        window.addEventListener("click", handleClickSearchBox);
+        return () => {
+            window.removeEventListener("click", handleClickSearchBox);
+        };
+    }, []);
 
     return (
         <Wrapper>
