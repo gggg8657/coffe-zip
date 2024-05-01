@@ -115,11 +115,13 @@ const SearchBox = () => {
         setOpen(false);
     };
 
+    // 현재 마우스 이벤트를 감지하여 리스트 창을 닫을지 결정하는 함수
     const handleClickSearchBox = (e: MouseEvent) => {
         const isFocus = (e.target as HTMLElement).closest("div")?.dataset.id;
         isFocus ? setOpen(true) : setOpen(false);
     };
 
+    // 클릭 이벤트 리스너 등록을 통한 마우스 이벤트 감지
     useEffect(() => {
         window.addEventListener("click", handleClickSearchBox);
         return () => {

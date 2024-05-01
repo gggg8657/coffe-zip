@@ -1,7 +1,8 @@
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import styled, { createGlobalStyle } from "styled-components";
 import reset from "styled-reset";
-import { lazy } from "react";
+import { Suspense, lazy } from "react";
+import Loading from "./components/loading";
 
 const Home = lazy(() => import("./pages/Home"));
 
@@ -44,10 +45,12 @@ const Wrapper = styled.div`
 
 const App = () => {
     return (
-        <Wrapper>
-            <GlobalStyles />
-            <RouterProvider router={router} />
-        </Wrapper>
+        <Suspense fallback={<Loading />}>
+            <Wrapper>
+                <GlobalStyles />
+                <RouterProvider router={router} />
+            </Wrapper>
+        </Suspense>
     );
 };
 

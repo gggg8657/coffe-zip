@@ -113,7 +113,7 @@ const List: React.FC<{
                                         alt="cafe-icon"
                                         src="/svg/cafe.svg"
                                         width="24"
-                                        height="auto"
+                                        height="25"
                                     />
                                 </div>
                             )}

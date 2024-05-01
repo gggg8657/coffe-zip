@@ -146,7 +146,6 @@ const Home = () => {
                     <Logo>
                         <div>
                             <img
-                                className="logo"
                                 alt="logo-icon"
                                 src="/webp/logo.webp"
                                 width="48"
