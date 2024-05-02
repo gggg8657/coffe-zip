@@ -1,0 +1,60 @@
+{
+    "background_color": "#ffffff",
+    "theme_color": "#ffffff",
+    "description": "24시간 영업하는 카페부터 무인 카페까지 모두 찾아보자!",
+    "dir": "ltr",
+    "display": "standalone",
+    "name": "카페 찾는 부엉이",
+    "orientation": "any",
+    "scope": "/",
+    "short_name": "카페 찾는 부엉이",
+    "start_url": "/",
+    "icons": [
+        {
+            "src": "icons/favicon.ico",
+            "sizes": "64x64 48x48 32x32 24x24 16x16",
+            "type": "image/x-icon"
+        },
+        {
+            "src": "icons/logo-72X72.png",
+            "sizes": "72x72",
+            "type": "image/png",
+            "purpose": "any maskable"
+        },
+        {
+            "src": "icons/logo-128X128.png",
+            "sizes": "128x128",
+            "type": "image/png",
+            "purpose": "any maskable"
+        },
+        {
+            "src": "icons/logo-144X144.png",
+            "sizes": "144x144",
+            "type": "image/png",
+            "purpose": "any maskable"
+        },
+        {
+            "src": "icons/logo-152X152.png",
+            "sizes": "152x152",
+            "type": "image/png",
+            "purpose": "any maskable"
+        },
+        {
+            "src": "icons/logo-192X192.png",
+            "sizes": "192x192",
+            "type": "image/png"
+        },
+        {
+            "src": "icons/logo-256X256.png",
+            "sizes": "256x256",
+            "type": "image/png"
+        },
+        {
+            "src": "icons/logo-512X512.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        }
+    ],
+    "lang": "ko",
+    "categories": ["food", "lifestyle", "navigation"]
+}

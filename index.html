@@ -7,6 +7,9 @@
             rel="preconnect"
             href="https://vjzndjtiknxukfnkifcc.supabase.co"
         />
+        <link rel="manifest" href="manifest.json" />
+        <meta name="theme-color" content="#ffffff" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="#ffffff" />
         <link rel="preconnect" href="http://t1.daumcdn.net" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>카페 찾는 부엉이 | 서울에서 24시간 카페 찾기</title>
@@ -39,5 +42,12 @@
     <body>
         <div id="root"></div>
         <script type="module" src="/src/main.tsx"></script>
+        <script>
+            if ("serviceWorker" in navigator) {
+                navigator.serviceWorker.register("/sw.js");
+            } else {
+                console.log("Service workers are not supported.");
+            }
+        </script>
     </body>
 </html>

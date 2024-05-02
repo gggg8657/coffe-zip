@@ -194,6 +194,7 @@ const KakaoMap: React.FC<{ list: ListProps[] }> = ({ list }) => {
             const newCenter = new kakao.maps.LatLng(location[0], location[1]);
             myMap.setCenter(newCenter);
         }
+        //eslint-disable-next-line react-hooks/exhaustive-deps
     }, [myMap, location]);
 
     // 현재 사용자 위치로 이동하는 함수
