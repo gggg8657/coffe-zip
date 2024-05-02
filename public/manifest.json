@@ -8,7 +8,7 @@
     "orientation": "any",
     "scope": "/",
     "short_name": "카페 찾는 부엉이",
-    "start_url": "./index.html",
+    "start_url": "/",
     "icons": [
         {
             "src": "icons/logo-32x32.png",
