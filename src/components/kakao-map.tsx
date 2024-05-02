@@ -151,6 +151,7 @@ const KakaoMap: React.FC<{ list: ListProps[] }> = ({ list }) => {
         };
 
         if (myMap) {
+            myMap.setLevel(6);
             if (list) {
                 const CafeMarkers = createMarkers(list, myMap);
                 setMarkers(CafeMarkers);

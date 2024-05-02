@@ -1,4 +1,4 @@
-# 🗺️ 서울에 있는 24시간/무인 카페 찾기 서비스 / 카페 찾는 부엉이
+# 🦉 카페 찾는 부엉이 - 서울에 있는 24시간/무인 카페 찾기 웹/앱 서비스
 
 ## ⚙️ 요구 사항(Requirements)
 
@@ -18,7 +18,7 @@ $ yan dev
 
 -   서울 내 야간 영업 정보를 제공하는 웹/앱 서비스입니다.
 -   야간 운영은 자정 이후 또는 24시간 영업하는 카페를 의미합니다.
--   사용자에 GPS 좌표를 기반으로, 반경 2km 내에 있는 카페들의 목록을 제공합니다.
+-   사용자에 GPS 좌표를 기준으로 반경 2km 내에 있는 카페들의 정보를 제공합니다.
 
 ## 🗓️ 개발 기간(Development Period)
 
@@ -82,25 +82,85 @@ $ yan dev
 ## 📂 디렉토리 구조
 
 ```bash
-
+24hour-cafe
+├─ .eslintrc.cjs
+├─ .github
+│  └─ workflows
+│     └─ test.yml
+├─ .gitignore
+├─ index.html
+├─ package.json
+├─ public
+│  ├─ icons
+│  │  ├─ favicon.ico
+│  │  ├─ logo-128X128.png
+│  │  ├─ logo-144X144.png
+│  │  ├─ logo-152X152.png
+│  │  ├─ logo-192X192.png
+│  │  ├─ logo-256X256.png
+│  │  ├─ logo-512X512.png
+│  │  └─ logo-72X72.png
+│  ├─ manifest.json
+│  ├─ svg
+│  │  ├─ allday.svg
+│  │  ├─ arrow.svg
+│  │  ├─ cafe.svg
+│  │  ├─ cancle.svg
+│  │  ├─ current.svg
+│  │  ├─ location.svg
+│  │  ├─ parttime.svg
+│  │  ├─ pin.svg
+│  │  ├─ search.svg
+│  │  └─ unman.svg
+│  └─ webp
+│     └─ logo.webp
+├─ README.md
+├─ robots.txt
+├─ src
+│  ├─ apis
+│  │  └─ supabase-api.ts
+│  ├─ App.tsx
+│  ├─ components
+│  │  ├─ custom-overlay.ts
+│  │  ├─ kakao-map.tsx
+│  │  ├─ list.tsx
+│  │  ├─ loading.tsx
+│  │  ├─ search-box.tsx
+│  │  ├─ skeleton-ui.tsx
+│  │  └─ tab-bar.tsx
+│  ├─ interfacce
+│  │  └─ list-interface.ts
+│  ├─ main.tsx
+│  ├─ pages
+│  │  └─ Home.tsx
+│  ├─ stores
+│  │  └─ map-store.ts
+│  ├─ supabase
+│  │  └─ supabase.ts
+│  └─ vite-env.d.ts
+├─ sw.js
+├─ tsconfig.json
+├─ tsconfig.node.json
+├─ vite.config.ts
+└─ yarn.lock
 ```
 
 ## 🌟 주요 기능(Specification)
 
 #### ☕ 주변 카페 데이터 조회(Data Fetching)
 
--   현재 사용자의 GPS 값을 기반으로 2km 이내에 있는 24시간/무인 카페 리스트를 조회 후 지도에 핀 보여주기
--   한 페이지 내에서 최대 카페 데이터 5개 및 지도 최대 핀 5개 제한, 그 외 모두 페이지네이션 활용
+-   현재 사용자의 GPS 값을 기반으로 2km 이내에 있는 24시간/무인 카페 리스트를 조회 후 지도에 마커 보여주기
+-   한 페이지 내에서 최대 카페 데이터 5개 및 지도 최대 마커 5개 제한, 그 외 모두 페이지네이션 활용
 -   React-Query를 사용한 데이터 캐싱 지원
 
 #### 🔍 장소/주소 검색 기능(Search)
 
 -   카카오 지도 API의 검색 기능을 활용해 장소/주소 검색 시 자동완성 기능 지원
--   검색 시 지도의 중심을 해당 좌표로 이동과 동시에 근방 2km 이내에 있는 카페 데이터 재 패치
+-   검색 시 지도의 중심을 해당 좌표로 이동과 동시에 근방 2km 이내에 있는 카페 데이터 재요청
 
 #### 📬 주소 복사/공유 기능(Copy & Share)
 
--   핀/리스트에서 클릭 시 카페 이름과 주소를 확인할 수 있는 상세보기 창 기능
+-   마커/리스트 클릭 시 카페 이름과 주소를 확인할 수 있는 상세보기 창 기능
 -   상세보기 창에서 주소 복사 기능으로 클립보드에 카페 주소 복사 기능 구현
 -   상세보기 창에서 주소 공유 기능으로 현재 카페 정보를 다른 사람에게 공유할 수 있는 기능 구현
 
