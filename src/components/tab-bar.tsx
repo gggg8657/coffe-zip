@@ -12,8 +12,10 @@ const Wrapper = styled.div`
     display: flex;
     justify-content: space-between;
     align-items: center;
+    padding-bottom: 18px;
     padding-top: 12px;
     border-top: 3px solid #d9d9d9;
+    font-weight: bold;
 `;
 
 const IconWrapper = styled.div<IconProps>`
@@ -26,8 +28,8 @@ const IconWrapper = styled.div<IconProps>`
     padding: 0px 10px;
     color: ${(props) => (props.$active ? "#ff005c" : "#000000")};
     svg {
-        height: 20px;
-        width: 20px;
+        height: 24px;
+        width: 24px;
         stroke: ${(props) => (props.$active ? "#ff005c" : "#000000")};
     }
 `;

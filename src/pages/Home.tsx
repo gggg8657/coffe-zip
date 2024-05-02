@@ -21,7 +21,7 @@ const Container = styled.div`
     position: absolute;
     bottom: 0;
     z-index: 999;
-    height: 40vh;
+    height: 43vh;
     width: 100%;
     background-color: #ffffff;
     border: none;
@@ -42,7 +42,7 @@ const Box = styled.div`
     flex-direction: column;
     width: 100%;
     height: 100%;
-    padding-bottom: 70px;
+    padding-bottom: 80px;
 `;
 
 const Line = styled.div`

@@ -11,7 +11,7 @@ const Wrapper = styled.div`
 
 const Kakao = styled.div`
     width: 100%;
-    height: 65vh;
+    height: 60vh;
     @media (min-width: 1025px) {
         height: 100vh;
     }
@@ -146,7 +146,6 @@ const KakaoMap: React.FC<{ list: ListProps[] }> = ({ list }) => {
                 kakao.maps.event.addListener(marker, "mouseout", () =>
                     overlay.setMap(null)
                 );
-
                 return marker;
             });
         };
