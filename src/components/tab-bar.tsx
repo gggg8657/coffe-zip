@@ -12,6 +12,7 @@ const Wrapper = styled.div`
     display: flex;
     justify-content: space-between;
     align-items: center;
+    padding: 0px 8px;
     padding-bottom: 18px;
     padding-top: 12px;
     border-top: 3px solid #d9d9d9;
@@ -25,7 +26,7 @@ const IconWrapper = styled.div<IconProps>`
     justify-content: center;
     align-items: center;
     gap: 8px;
-    padding: 0px 10px;
+    padding: 0px 8px;
     color: ${(props) => (props.$active ? "#ff005c" : "#000000")};
     svg {
         height: 24px;
