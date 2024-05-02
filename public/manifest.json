@@ -11,34 +11,39 @@
     "start_url": "/",
     "icons": [
         {
+            "src": "icons/favicon.ico",
+            "sizes": "16x16",
+            "type": "image/x-icon"
+        },
+        {
             "src": "icons/logo-32x32.png",
             "sizes": "32x32",
             "type": "image/png",
-            "purpose": "any maskable"
+            "purpose": "maskable"
         },
         {
             "src": "icons/logo-48x48.png",
             "sizes": "48x48",
             "type": "image/png",
-            "purpose": "any maskable"
+            "purpose": "maskable"
         },
         {
             "src": "icons/logo-72x72.png",
             "sizes": "72x72",
             "type": "image/png",
-            "purpose": "any maskable"
+            "purpose": "maskable"
         },
         {
             "src": "icons/logo-128x128.png",
             "sizes": "128x128",
             "type": "image/png",
-            "purpose": "any maskable"
+            "purpose": "maskable"
         },
         {
             "src": "icons/logo-144x144.png",
             "sizes": "144x144",
             "type": "image/png",
-            "purpose": "any maskable"
+            "purpose": "maskable"
         },
         {
             "src": "icons/logo-192x192.png",
