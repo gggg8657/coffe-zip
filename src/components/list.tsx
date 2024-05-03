@@ -8,9 +8,9 @@ const Wrapper = styled.div`
     flex-direction: column;
     width: 100%;
     gap: 10px;
-    margin-top: 20px;
+    margin-top: 14px;
     overflow-y: scroll;
-    padding: 0px 10px;
+    padding: 0px 20px;
 `;
 
 const Item = styled.div`
@@ -19,7 +19,7 @@ const Item = styled.div`
     height: 40px;
     display: flex;
     justify-content: space-between;
-    padding: 6px 10px;
+    padding: 6px 0px;
     color: #000000;
 `;
 
@@ -38,6 +38,7 @@ const Titie = styled.div`
         line-height: 0px;
         margin-left: 8px;
     }
+    margin-top: 12px;
 `;
 
 const BoldText = styled.span`

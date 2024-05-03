@@ -11,7 +11,7 @@ const Wrapper = styled.div`
 
 const Kakao = styled.div`
     width: 100%;
-    height: 60vh;
+    height: 56vh;
     @media (min-width: 1025px) {
         height: 100vh;
     }

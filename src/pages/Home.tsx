@@ -21,12 +21,11 @@ const Container = styled.div`
     position: absolute;
     bottom: 0;
     z-index: 999;
-    height: 43vh;
+    height: 48vh;
     width: 100%;
     background-color: #ffffff;
     border: none;
     border-radius: 20px 20px 0px 0px;
-    padding: 4px 0px;
     @media (min-width: 1025px) {
         width: 380px;
         height: 100%;
@@ -42,18 +41,7 @@ const Box = styled.div`
     flex-direction: column;
     width: 100%;
     height: 100%;
-    padding-bottom: 80px;
-`;
-
-const Line = styled.div`
-    position: absolute;
-    top: 1%;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 50px;
-    height: 4px;
-    background-color: #696969;
-    border-radius: 20px;
+    padding-bottom: 120px;
 `;
 
 const Search = styled.div`
@@ -142,7 +130,6 @@ const Home = () => {
             <KakaoMap list={paginatedCafeList[currentPage]} />
             <Container>
                 <Box>
-                    <Line />
                     <Logo>
                         <div>
                             <img

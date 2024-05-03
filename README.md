@@ -1,5 +1,11 @@
 # 🦉 카페 찾는 부엉이 - 서울에 있는 24시간/무인 카페 찾기 웹/앱 서비스
 
+## 🖥️ 서비스 소개(Introduction)
+
+-   서울 내 야간 영업 정보를 제공하는 웹/앱 서비스입니다.
+-   야간 운영은 자정 이후 또는 24시간 영업하는 카페를 의미합니다.
+-   사용자에 GPS 좌표를 기준으로 반경 2km 내에 있는 카페들의 정보를 제공합니다.
+
 ## ⚙️ 요구 사항(Requirements)
 
 -   Node.js 20.11.1
@@ -14,11 +20,19 @@ $ yarn
 $ yan dev
 ```
 
-## 🖥️ 서비스 소개(Introduction)
+## 📲 PWA를 활용한 앱(Application)
 
--   서울 내 야간 영업 정보를 제공하는 웹/앱 서비스입니다.
--   야간 운영은 자정 이후 또는 24시간 영업하는 카페를 의미합니다.
--   사용자에 GPS 좌표를 기준으로 반경 2km 내에 있는 카페들의 정보를 제공합니다.
+#### 🍎 iOS
+
+-   Safari 환경에서 https://coffeezip.vercel.app에 접속
+-   공유 버튼 클릭 후 아래 홈 화면에 추가
+-   홈 화면에 추가된 앱으로 실행
+
+#### 🖥️ Web
+
+-   Chrome 환경에서 https://coffeezip.vercel.app에 접속
+-   검색창 우측의 위치한 북마크 추가 버튼 좌측 클릭 후 앱 설치
+-   바탕화면에 추가된 앱으로 실행
 
 ## 🗓️ 개발 기간(Development Period)
 
@@ -95,11 +109,12 @@ $ yan dev
 │  │  ├─ favicon.ico
 │  │  ├─ logo-128X128.png
 │  │  ├─ logo-144X144.png
-│  │  ├─ logo-152X152.png
 │  │  ├─ logo-192X192.png
 │  │  ├─ logo-256X256.png
 │  │  ├─ logo-512X512.png
 │  │  └─ logo-72X72.png
+│  │  └─ logo-48X48.png
+│  │  └─ logo-32X32.png
 │  ├─ manifest.json
 │  ├─ svg
 │  │  ├─ allday.svg
@@ -114,6 +129,7 @@ $ yan dev
 │  │  └─ unman.svg
 │  └─ webp
 │     └─ logo.webp
+│     └─ wrapper.webp
 ├─ README.md
 ├─ robots.txt
 ├─ src
