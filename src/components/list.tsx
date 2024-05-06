@@ -16,7 +16,7 @@ const Wrapper = styled.div`
 const Item = styled.div`
     cursor: pointer;
     width: 100%;
-    height: 40px;
+    min-height: 40px;
     display: flex;
     justify-content: space-between;
     padding: 6px 0px;
@@ -51,6 +51,11 @@ const BoldText = styled.span`
         border-radius: 20px;
         padding: 4px 8px;
     }
+    &.allday {
+        background-color: #f8ebfe;
+        border-radius: 20px;
+        padding: 4px 8px;
+    }
 `;
 
 const RowBox = styled.div`
@@ -70,6 +75,11 @@ const NoItem = styled.div`
     color: #4c73c3;
     font-weight: bold;
     margin-top: 20px;
+`;
+
+const Meter = styled.div`
+    min-width: 44.5px;
+    font-size: 16px;
 `;
 
 const List: React.FC<{
@@ -125,12 +135,16 @@ const List: React.FC<{
                             {item.unmanned === true && (
                                 <BoldText className="unmanned">무인</BoldText>
                             )}
+                            {item.unmanned === false &&
+                                item.closed === null && (
+                                    <BoldText className="allday">24시</BoldText>
+                                )}
                             {item.dist_meters < 1000 ? (
-                                <div>{item.dist_meters}m</div>
+                                <Meter>{item.dist_meters}m</Meter>
                             ) : (
-                                <div>
+                                <Meter>
                                     {(item.dist_meters / 1000).toFixed(1)}km
-                                </div>
+                                </Meter>
                             )}
                         </RowBox>
                     </Item>

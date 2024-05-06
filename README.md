@@ -20,19 +20,23 @@ $ yarn
 $ yan dev
 ```
 
+## 🔗 웹 바로가기(Deployment)
+
+https://coffeezip.vercel.app
+
 ## 📲 PWA를 활용한 앱(Application)
 
-#### 🍎 iOS
+#### 🍎 iOS & Safari
 
 -   Safari 환경에서 https://coffeezip.vercel.app에 접속
 -   공유 버튼 클릭 후 아래 홈 화면에 추가
--   홈 화면에 추가된 앱으로 실행
+-   바탕화면 또는 홈 화면에 추가된 앱으로 실행
 
-#### 🖥️ Web
+#### 🖥️ Web & Chrome
 
 -   Chrome 환경에서 https://coffeezip.vercel.app에 접속
 -   검색창 우측의 위치한 북마크 추가 버튼 좌측 클릭 후 앱 설치
--   바탕화면에 추가된 앱으로 실행
+-   바탕화면 또는 홈 화면에 추가된 앱으로 실행
 
 ## 🗓️ 개발 기간(Development Period)
 
@@ -47,7 +51,7 @@ $ yan dev
 
 ## 개인(본인) 기여도
 
--   **1인 개발**
+-   **1인 개발(프론트 & DB)**
 -   **디자인 참여**
 
 ## 📚 기술 스택(Stacks)
@@ -111,10 +115,10 @@ $ yan dev
 │  │  ├─ logo-144X144.png
 │  │  ├─ logo-192X192.png
 │  │  ├─ logo-256X256.png
+│  │  ├─ logo-32X32.png
+│  │  ├─ logo-48X48.png
 │  │  ├─ logo-512X512.png
 │  │  └─ logo-72X72.png
-│  │  └─ logo-48X48.png
-│  │  └─ logo-32X32.png
 │  ├─ manifest.json
 │  ├─ svg
 │  │  ├─ allday.svg
@@ -123,12 +127,12 @@ $ yan dev
 │  │  ├─ cancle.svg
 │  │  ├─ current.svg
 │  │  ├─ location.svg
+│  │  ├─ muin.svg
 │  │  ├─ parttime.svg
-│  │  ├─ pin.svg
 │  │  ├─ search.svg
 │  │  └─ unman.svg
 │  └─ webp
-│     └─ logo.webp
+│     ├─ logo.webp
 │     └─ wrapper.webp
 ├─ README.md
 ├─ robots.txt

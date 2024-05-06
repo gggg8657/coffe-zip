@@ -11,7 +11,7 @@ const Wrapper = styled.div`
 
 const Kakao = styled.div`
     width: 100%;
-    height: 56vh;
+    height: 55vh;
     @media (min-width: 1025px) {
         height: 100vh;
     }
@@ -72,7 +72,7 @@ const KakaoMap: React.FC<{ list: ListProps[] }> = ({ list }) => {
                         37.570227990912244,
                         126.98315081716676
                     ),
-                    level: 6,
+                    level: 4,
                 };
                 const initialMap = new kakao.maps.Map(container, options);
                 setMyMap(initialMap);
@@ -108,17 +108,17 @@ const KakaoMap: React.FC<{ list: ListProps[] }> = ({ list }) => {
                 let markerUrl;
                 if (item.unmanned === true) {
                     // 무인
-                    markerUrl = "/svg/allday.svg";
+                    markerUrl = "/svg/muin.svg";
                 } else {
                     // 24시간
                     if (item.closed === null) {
-                        markerUrl = "/svg/pin.svg";
+                        markerUrl = "/svg/allday.svg";
                     } else {
                         // 24시간 X
                         markerUrl = "/svg/parttime.svg";
                     }
                 }
-                const markerSize = new kakao.maps.Size(50, 64);
+                const markerSize = new kakao.maps.Size(36, 46);
                 const markerImage = new kakao.maps.MarkerImage(
                     markerUrl,
                     markerSize
@@ -140,9 +140,9 @@ const KakaoMap: React.FC<{ list: ListProps[] }> = ({ list }) => {
                     item.lng,
                     true
                 );
-                kakao.maps.event.addListener(marker, "mouseover", () => {
-                    overlay.setMap(map);
-                });
+                kakao.maps.event.addListener(marker, "mouseover", () =>
+                    overlay.setMap(map)
+                );
                 kakao.maps.event.addListener(marker, "mouseout", () =>
                     overlay.setMap(null)
                 );
@@ -151,7 +151,7 @@ const KakaoMap: React.FC<{ list: ListProps[] }> = ({ list }) => {
         };
 
         if (myMap) {
-            myMap.setLevel(6);
+            myMap.setLevel(4);
             if (list) {
                 const CafeMarkers = createMarkers(list, myMap);
                 setMarkers(CafeMarkers);
