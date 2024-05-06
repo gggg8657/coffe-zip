@@ -5,13 +5,17 @@ import MapStore from "../stores/map-store";
 import SearchBox from "./search-box";
 import CustomOverlay from "./custom-overlay";
 
+interface ActiveProps {
+    $active: boolean;
+}
+
 const Wrapper = styled.div`
     position: relative;
 `;
 
-const Kakao = styled.div`
+const Kakao = styled.div<ActiveProps>`
     width: 100%;
-    height: 55vh;
+    height: ${(props) => (props.$active ? "55vh" : "87vh")};
     @media (min-width: 1025px) {
         height: 100vh;
     }
@@ -53,8 +57,30 @@ const IconWrapper = styled.div`
     }
 `;
 
+const SliderWrapper = styled.div`
+    position: absolute;
+    cursor: pointer;
+    background-color: #ffffff;
+    border: none;
+    display: flex;
+    justify-content: center;
+    border-radius: 100%;
+    padding: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+    z-index: 998;
+    bottom: 10%;
+    right: 12px;
+    &:hover {
+        opacity: 0.8;
+    }
+    @media (min-width: 1025px) {
+        display: none;
+    }
+`;
+
 const KakaoMap: React.FC<{ list: ListProps[] }> = ({ list }) => {
-    const { location, selected } = MapStore();
+    const { location, selected, openList, setOpenList, setSelected } =
+        MapStore();
     const [myMap, setMyMap] = useState<kakao.maps.Map | null>(null);
     const [markers, setMarkers] = useState<kakao.maps.Marker[]>([]);
     const [ctOverlay, setCtOverlay] = useState<kakao.maps.CustomOverlay | null>(
@@ -137,37 +163,33 @@ const KakaoMap: React.FC<{ list: ListProps[] }> = ({ list }) => {
                     item.name,
                     item.address,
                     item.lat,
-                    item.lng,
-                    true
+                    item.lng
                 );
-                kakao.maps.event.addListener(marker, "mouseover", () =>
-                    overlay.setMap(map)
-                );
-                kakao.maps.event.addListener(marker, "mouseout", () =>
+                kakao.maps.event.addListener(marker, "click", () => {
+                    overlay.setMap(map);
+                });
+                kakao.maps.event.addListener(map, "click", () =>
                     overlay.setMap(null)
                 );
+
                 return marker;
             });
         };
 
         if (myMap) {
-            myMap.setLevel(4);
+            myMap.setLevel(6);
+            myMap.relayout();
             if (list) {
                 const CafeMarkers = createMarkers(list, myMap);
                 setMarkers(CafeMarkers);
                 CafeMarkers.forEach((marker) => marker.setMap(myMap));
             }
             if (selected[0] !== "") {
-                const copyAddress = async () => {
-                    await navigator.clipboard.writeText(selected[1]);
-                    alert("클립보드에 주소가 복사되었습니다.");
-                };
                 const overlay = CustomOverlay(
                     selected[0],
                     selected[1],
                     selected[2],
-                    selected[3],
-                    false
+                    selected[3]
                 );
                 overlay.setMap(myMap);
                 myMap.setCenter(overlay.getPosition());
@@ -176,13 +198,18 @@ const KakaoMap: React.FC<{ list: ListProps[] }> = ({ list }) => {
                     overlay.setMap(null)
                 );
                 const copyBtns = document.querySelectorAll(".copyBtn");
-                if (copyBtns) {
-                    copyBtns.forEach((btn) => {
-                        btn.addEventListener("click", () => {
-                            copyAddress();
-                        });
+                copyBtns.forEach((btn) => {
+                    btn.addEventListener("click", async () => {
+                        await navigator.clipboard.writeText(selected[1]);
+                        alert("클립보드에 주소가 복사되었습니다.");
                     });
-                }
+                });
+                const close = document.querySelectorAll(".close");
+                close.forEach((btn) => {
+                    btn.addEventListener("click", function () {
+                        overlay.setMap(null);
+                    });
+                });
             }
         }
         //eslint-disable-next-line react-hooks/exhaustive-deps
@@ -208,9 +235,14 @@ const KakaoMap: React.FC<{ list: ListProps[] }> = ({ list }) => {
         }
     };
 
+    const handleToggle = () => {
+        setOpenList();
+        setSelected(["", "", 0, 0]);
+    };
+
     return (
         <Wrapper>
-            <Kakao id="map" />
+            <Kakao id="map" $active={openList} />
             <Search>
                 <SearchBox />
             </Search>
@@ -222,6 +254,23 @@ const KakaoMap: React.FC<{ list: ListProps[] }> = ({ list }) => {
                     width="20"
                 />
             </IconWrapper>
+            <SliderWrapper onClick={handleToggle}>
+                {openList ? (
+                    <img
+                        alt="arrow-down-icon"
+                        src="/svg/arrowdown.svg"
+                        height="20"
+                        width="20"
+                    />
+                ) : (
+                    <img
+                        alt="arrow-up-icon"
+                        src="/svg/arrowup.svg"
+                        height="20"
+                        width="20"
+                    />
+                )}
+            </SliderWrapper>
         </Wrapper>
     );
 };

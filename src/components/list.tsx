@@ -78,7 +78,7 @@ const NoItem = styled.div`
 `;
 
 const Meter = styled.div`
-    min-width: 44.5px;
+    min-width: 42px;
     font-size: 16px;
 `;
 

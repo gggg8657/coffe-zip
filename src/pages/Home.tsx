@@ -41,7 +41,7 @@ const Box = styled.div`
     flex-direction: column;
     width: 100%;
     height: 100%;
-    padding-bottom: 120px;
+    padding-bottom: 110px;
 `;
 
 const Search = styled.div`
@@ -69,7 +69,7 @@ const LogoTitle = styled.div`
 `;
 
 const Home = () => {
-    const { setLocation, location, setSelected } = MapStore();
+    const { setLocation, location, setSelected, openList } = MapStore();
     const [currentPage, setCurrentPage] = useState(0);
 
     // 카페 데이터 패칭
@@ -128,33 +128,35 @@ const Home = () => {
     return (
         <Wrapper>
             <KakaoMap list={paginatedCafeList[currentPage]} />
-            <Container>
-                <Box>
-                    <Logo>
-                        <div>
-                            <img
-                                alt="logo-icon"
-                                src="/webp/logo.webp"
-                                width="48"
-                                height="48"
-                            />
-                        </div>
-                        <LogoTitle>카페 찾는 부엉이</LogoTitle>
-                    </Logo>
-                    <Search>
-                        <SearchBox />
-                    </Search>
-                    <List
-                        list={paginatedCafeList[currentPage]}
-                        isLoading={isLoading}
-                    />
-                    <TabBar
-                        handleChangePage={handleChangePage}
-                        page={currentPage}
-                        totalPage={totalPage}
-                    />
-                </Box>
-            </Container>
+            {openList && (
+                <Container>
+                    <Box>
+                        <Logo>
+                            <div>
+                                <img
+                                    alt="logo-icon"
+                                    src="/webp/logo.webp"
+                                    width="48"
+                                    height="48"
+                                />
+                            </div>
+                            <LogoTitle>카페 찾는 부엉이</LogoTitle>
+                        </Logo>
+                        <Search>
+                            <SearchBox />
+                        </Search>
+                        <List
+                            list={paginatedCafeList[currentPage]}
+                            isLoading={isLoading}
+                        />
+                    </Box>
+                </Container>
+            )}
+            <TabBar
+                handleChangePage={handleChangePage}
+                page={currentPage}
+                totalPage={totalPage}
+            />
         </Wrapper>
     );
 };

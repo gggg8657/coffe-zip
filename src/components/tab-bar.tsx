@@ -12,6 +12,13 @@ const Wrapper = styled.div`
     display: flex;
     flex-direction: column;
     border-top: 3px solid #d9d9d9;
+    background-color: #ffffff;
+    z-index: 999;
+    @media (min-width: 1025px) {
+        width: 380px;
+        bottom: 0;
+        left: 0;
+    }
 `;
 
 const Container = styled.div`
