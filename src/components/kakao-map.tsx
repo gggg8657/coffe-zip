@@ -171,7 +171,6 @@ const KakaoMap: React.FC<{ list: ListProps[] }> = ({ list }) => {
                 kakao.maps.event.addListener(map, "click", () =>
                     overlay.setMap(null)
                 );
-
                 return marker;
             });
         };
@@ -197,19 +196,6 @@ const KakaoMap: React.FC<{ list: ListProps[] }> = ({ list }) => {
                 kakao.maps.event.addListener(myMap, "click", () =>
                     overlay.setMap(null)
                 );
-                const copyBtns = document.querySelectorAll(".copyBtn");
-                copyBtns.forEach((btn) => {
-                    btn.addEventListener("click", async () => {
-                        await navigator.clipboard.writeText(selected[1]);
-                        alert("클립보드에 주소가 복사되었습니다.");
-                    });
-                });
-                const close = document.querySelectorAll(".close");
-                close.forEach((btn) => {
-                    btn.addEventListener("click", function () {
-                        overlay.setMap(null);
-                    });
-                });
             }
         }
         //eslint-disable-next-line react-hooks/exhaustive-deps
