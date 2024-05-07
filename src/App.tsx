@@ -41,6 +41,7 @@ const Wrapper = styled.div`
     flex-direction: column;
     align-items: center;
     height: 100vh;
+    background-color: #ffffff;
 `;
 
 const App = () => {

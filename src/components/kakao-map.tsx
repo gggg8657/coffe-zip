@@ -15,7 +15,7 @@ const Wrapper = styled.div`
 
 const Kakao = styled.div<ActiveProps>`
     width: 100%;
-    height: ${(props) => (props.$active ? "55vh" : "87.8vh")};
+    height: ${(props) => (props.$active ? "54vh" : "87.8vh")};
     @media (min-width: 1025px) {
         height: 100vh;
     }
