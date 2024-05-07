@@ -51,14 +51,16 @@ const Container = styled.div`
         left: 0;
         border-radius: 0;
     }
-    animation-duration: 0.3s;
-    animation-timing-function: ease-in-out;
-    animation-fill-mode: forwards;
-    &.slide-down {
-        animation-name: ${slideDown};
-    }
-    &.slide-up {
-        animation-name: ${slideUp};
+    @media (max-width: 1024px) {
+        animation-duration: 0.3s;
+        animation-timing-function: ease-in-out;
+        animation-fill-mode: forwards;
+        &.slide-down {
+            animation-name: ${slideDown};
+        }
+        &.slide-up {
+            animation-name: ${slideUp};
+        }
     }
 `;
 

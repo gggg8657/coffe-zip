@@ -1,6 +1,5 @@
 import ReactDOM from "react-dom/client";
 import App from "./App.tsx";
-import "../src/assets/fonts/font.css";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 const queryClient = new QueryClient();
