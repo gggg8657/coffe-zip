@@ -57,7 +57,6 @@ const CustomOverlay = (
 
     // close div 생성
     const closeDiv = document.createElement("div");
-    closeDiv.className = "close";
     closeDiv.style.cursor = "pointer";
     closeDiv.onclick = () => overlay.setMap(null);
 
@@ -74,7 +73,26 @@ const CustomOverlay = (
     copyBtn.innerText = "주소 복사";
     copyBtn.onclick = async () => {
         await navigator.clipboard.writeText(address);
-        alert("클립보드에 주소가 복사되었습니다.");
+        const toastMessage = document.createElement("div");
+        toastMessage.innerText = "클립보드에 주소가 복사되었습니다.";
+        toastMessage.style.position = "fixed";
+        toastMessage.style.bottom = "110px";
+        toastMessage.style.width = "260px";
+        toastMessage.style.left = "50%";
+        toastMessage.style.transform = "translateX(-50%)";
+        toastMessage.style.display = "flex";
+        toastMessage.style.justifyContent = "center";
+        toastMessage.style.alignItems = "center";
+        toastMessage.style.backgroundColor = "#333";
+        toastMessage.style.opacity = "0.8";
+        toastMessage.style.color = "#fff";
+        toastMessage.style.padding = "10px 20px";
+        toastMessage.style.borderRadius = "5px";
+        toastMessage.style.zIndex = "9999";
+        document.body.appendChild(toastMessage);
+        setTimeout(() => {
+            toastMessage.remove();
+        }, 2000);
     };
 
     // link div 생성

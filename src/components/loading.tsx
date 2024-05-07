@@ -12,11 +12,10 @@ const Loading = () => {
     return (
         <Wrapper>
             <img
-                className="logo"
-                alt="logo-icon"
-                src="/webp/logo.webp"
-                width="72"
-                height="72"
+                alt="loading-icon"
+                src="/webp/loading.webp"
+                width="128"
+                height="128"
             />
         </Wrapper>
     );
