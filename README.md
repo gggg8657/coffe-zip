@@ -123,8 +123,11 @@ https://coffeezip.vercel.app
 │  ├─ svg
 │  │  ├─ allday.svg
 │  │  ├─ arrow.svg
+│  │  ├─ arrowdown.svg
+│  │  ├─ arrowup.svg
 │  │  ├─ cafe.svg
 │  │  ├─ cancle.svg
+│  │  ├─ close.svg
 │  │  ├─ current.svg
 │  │  ├─ location.svg
 │  │  ├─ muin.svg
@@ -132,6 +135,8 @@ https://coffeezip.vercel.app
 │  │  ├─ search.svg
 │  │  └─ unman.svg
 │  └─ webp
+│     ├─ kakaomap.webp
+│     ├─ loading.webp
 │     ├─ logo.webp
 │     └─ wrapper.webp
 ├─ README.md
@@ -186,10 +191,14 @@ https://coffeezip.vercel.app
 
 ## 🔥 트러블 슈팅(Trouble Shooting)
 
--   React Hook 중 useEffect를 사용해 지도를 화면에 띄우는 과정에서 의존성 배열에 지도에 표시할 카페 리스트를 넣다 보니 지도가 계속 재생성 되는 것을 확인하였다.(지도 줌 인, 줌 아웃 중 지속해서 이전에 생성된 지도가 나타나는 오류 발생)
+-   1. React Hook 중 useEffect를 사용해 지도를 화면에 띄우는 과정에서 의존성 배열에 지도에 표시할 카페 리스트를 넣다 보니 지도가 계속 재생성 되는 것을 확인하였다.(지도 줌 인, 줌 아웃 중 지속해서 이전에 생성된 지도가 나타나는 오류 발생)
 
--   결국 의존성 배열을 제거하고 최초 마운트 시 한 개의 지도만 생성하고 이를 React Hook 중 useState로 관리하여 한 개의 지도만 조작할 수 있게 하였다. 또한, React에서 제공하는 StrictMode로 useEffect가 마운트 시 두 번 발생하는 것을 Strict 모드를 제거하여 오직 마운트 시 한 번만 작동하게 하였다.
+-   결국 의존성 배열을 제거하고 최초 마운트 시 한 개의 지도만 생성하고 이를 React Hook 중 useState로 관리하여 한 개의 지도만 조작할 수 있게 하였다. 또한, React에서 제공하는 StrictMode로 useEffect가 마운트 시 두 번 작동하는 것을 StrictMode를 false로 설정하여 오직 최초 마운트 시 한 번만 작동하게 하였다.
 
--   현재 프로젝트 구조를 살펴보면 단일 페이지 Home에서 다른 컴포넌트를 import 하여 사용하고 있다. 이때 Home 컴포넌트 내에서 KakaoMap 컴포넌트와 List 컴포넌트가 존재하는데 List 컴포넌트에서 이벤트의 대한 작동을 KakaoMap 컴포넌트에서 하려다 보니 List->Home->KakaoMap 컴포넌트 순으로 Callback 함수와 props 전달이 계속 일어난다.
+-   2. 프로젝트 구조를 살펴보면 단일 페이지 Home에서 다른 컴포넌트를 import 하여 사용하고 있다. 이때 Home 컴포넌트 내에서 KakaoMap 컴포넌트와 List 컴포넌트가 존재하는데 List 컴포넌트에서 이벤트의 대한 작동을 KakaoMap 컴포넌트에서 하려다 보니 List->Home->KakaoMap 컴포넌트 순으로 Callback 함수와 props 전달이 계속 발생하여 추후에 의존성 문제로 인한 유지보수가 어렵다.
 
--   결국 zustand를 사용해서 List 컴포넌트에서 이벤트를 발생했을 때 데이터를 담아주고 이를 KakaoMap 컴포넌트에서 중앙 저장소에 접근하여 이를 활용하게 바꿨다.
+-   상태관리 라이브러리 Zustand를 사용해 List 컴포넌트에서 이벤트를 발생했을 때 선택한 데이터를 저장하고 이를 KakaoMap 컴포넌트에서 중앙 저장소에 접근하여 이를 활용하게 바꿨다.
+
+-   3. Kakao Map API를 사용하여 마커를 생성하고 클릭 이벤트로 CustomOverlay를 생성하여 보여주게 구현하였다. CustomOverlay에 경우 마커처럼 클릭 이벤트를 줄 수 없다고 한다. https://devtalk.kakao.com/t/topic/44205/6?u=karl.lee
+
+-   결국 CustomOverlay를 CreateElement로 생성하고 onClick 이벤트를 직접 등록하여 해결하였다.
