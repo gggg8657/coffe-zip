@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import { ListProps } from "../interfacce/list-interface";
 import { getCafeList } from "../apis/supabase-api";
 import MapStore from "../stores/map-store";
@@ -8,6 +8,24 @@ import TabBar from "../components/tab-bar";
 import List from "../components/list";
 import SearchBox from "../components/search-box";
 import KakaoMap from "../components/kakao-map";
+
+const slideDown = keyframes`
+    0% {
+        transform: translateY(100%);
+    }
+    100% {
+        transform: translateY(0);
+    }
+`;
+
+const slideUp = keyframes`
+    0% {
+        transform: translateY(0);
+    }
+    100% {
+        transform: translateY(100%);
+    }
+`;
 
 const Wrapper = styled.div`
     width: 100%;
@@ -32,6 +50,15 @@ const Container = styled.div`
         top: 0;
         left: 0;
         border-radius: 0;
+    }
+    animation-duration: 0.3s;
+    animation-timing-function: ease-in-out;
+    animation-fill-mode: forwards;
+    &.slide-down {
+        animation-name: ${slideDown};
+    }
+    &.slide-up {
+        animation-name: ${slideUp};
     }
 `;
 
@@ -128,30 +155,28 @@ const Home = () => {
     return (
         <Wrapper>
             <KakaoMap list={paginatedCafeList[currentPage]} />
-            {openList && (
-                <Container>
-                    <Box>
-                        <Logo>
-                            <div>
-                                <img
-                                    alt="logo-icon"
-                                    src="/webp/logo.webp"
-                                    width="48"
-                                    height="48"
-                                />
-                            </div>
-                            <LogoTitle>카페 찾는 부엉이</LogoTitle>
-                        </Logo>
-                        <Search>
-                            <SearchBox />
-                        </Search>
-                        <List
-                            list={paginatedCafeList[currentPage]}
-                            isLoading={isLoading}
-                        />
-                    </Box>
-                </Container>
-            )}
+            <Container className={openList ? "slide-down" : "slide-up"}>
+                <Box>
+                    <Logo>
+                        <div>
+                            <img
+                                alt="logo-icon"
+                                src="/webp/logo.webp"
+                                width="48"
+                                height="48"
+                            />
+                        </div>
+                        <LogoTitle>카페 찾는 부엉이</LogoTitle>
+                    </Logo>
+                    <Search>
+                        <SearchBox />
+                    </Search>
+                    <List
+                        list={paginatedCafeList[currentPage]}
+                        isLoading={isLoading}
+                    />
+                </Box>
+            </Container>
             <TabBar
                 handleChangePage={handleChangePage}
                 page={currentPage}

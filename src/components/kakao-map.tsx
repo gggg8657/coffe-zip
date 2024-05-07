@@ -15,7 +15,7 @@ const Wrapper = styled.div`
 
 const Kakao = styled.div<ActiveProps>`
     width: 100%;
-    height: ${(props) => (props.$active ? "55vh" : "87vh")};
+    height: ${(props) => (props.$active ? "55vh" : "87.8vh")};
     @media (min-width: 1025px) {
         height: 100vh;
     }
@@ -177,7 +177,6 @@ const KakaoMap: React.FC<{ list: ListProps[] }> = ({ list }) => {
 
         if (myMap) {
             myMap.setLevel(4);
-            myMap.relayout();
             if (list) {
                 const CafeMarkers = createMarkers(list, myMap);
                 setMarkers(CafeMarkers);
@@ -209,6 +208,13 @@ const KakaoMap: React.FC<{ list: ListProps[] }> = ({ list }) => {
         }
         //eslint-disable-next-line react-hooks/exhaustive-deps
     }, [myMap, location]);
+
+    useEffect(() => {
+        if (myMap) {
+            myMap.relayout();
+        }
+        //eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [openList]);
 
     // 현재 사용자 위치로 이동하는 함수
     const onClickLocate = () => {
