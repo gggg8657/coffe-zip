@@ -28,13 +28,13 @@ https://coffeezip.vercel.app
 
 #### 🍎 iOS & Safari
 
--   Safari 환경에서 https://coffeezip.vercel.app에 접속
+-   Safari 환경에서 https://coffeezip.vercel.app 접속
 -   공유 버튼 클릭 후 아래 홈 화면에 추가
 -   바탕화면 또는 홈 화면에 추가된 앱으로 실행
 
 #### 🖥️ Web & Chrome
 
--   Chrome 환경에서 https://coffeezip.vercel.app에 접속
+-   Chrome 환경에서 https://coffeezip.vercel.app 접속
 -   검색창 우측의 위치한 북마크 추가 버튼 좌측 클릭 후 앱 설치
 -   바탕화면 또는 홈 화면에 추가된 앱으로 실행
 
