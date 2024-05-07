@@ -2,17 +2,27 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <link rel="icon" type="image/webp" href="/webp/logo.webp" />
+        <link rel="manifest" href="manifest.json" />
+
+        <!-- API -->
         <link
             rel="preconnect"
             href="https://vjzndjtiknxukfnkifcc.supabase.co"
         />
-        <link rel="manifest" href="manifest.json" />
-        <meta name="theme-color" content="#ffffff" />
-        <meta name="apple-mobile-web-app-status-bar-style" content="#ffffff" />
-        <link rel="apple-touch-icon" href="/icons/logo-192X192.png" />
         <link rel="preconnect" href="http://t1.daumcdn.net" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+        <!-- Android, Chrome -->
+        <meta name="mobile-web-app-capable" content="yes" />
+        <meta name="theme-color" content="#ffffff" />
+
+        <!-- iOS -->
+        <link rel="apple-touch-icon" href="/icons/logo-192X192.png" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="#ffffff" />
+
+        <!-- SEO -->
         <title>카페 찾는 부엉이 | 부엉이들을 위한 밤늦게 여는 카페 지도</title>
         <meta
             name="title"
@@ -34,6 +44,8 @@
             property="og:image"
         /> -->
         <meta name="type" content="website" property="og:type" />
+
+        <!-- Kakao Map API -->
         <script
             type="text/javascript"
             strategy="beforeInteractive"
@@ -43,6 +55,7 @@
     <body>
         <div id="root"></div>
         <script type="module" src="/src/main.tsx"></script>
+        <!-- Service Worker -->
         <script>
             if ("serviceWorker" in navigator) {
                 navigator.serviceWorker
