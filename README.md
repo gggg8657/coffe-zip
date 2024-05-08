@@ -64,10 +64,8 @@ https://coffeezip.vercel.app
 
 ### 🛣️ 개발 환경(Environment)
 
-<div style="width: 100; display: flex; flex-wrap:wrap;">
-  <img src="https://img.shields.io/badge/VisualStudioCode-007ACC?style=for-the-badge&logo=visualstudiocode&logoColor=white">
-  <img src="https://img.shields.io/badge/Github-181717?style=for-the-badge&logo=github&logoColor=white">
-  <img src="https://img.shields.io/badge/Git-F05032?style=for-the-badge&logo=git&logoColor=white">
+<div>
+  <img src="https://github.com/Jack42chj/coffe-zip/assets/86552441/a9f5b8b4-e778-4a61-8fe8-b8a349dae090">
 </div>
 
 ### 💫 Config
