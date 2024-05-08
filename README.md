@@ -1,4 +1,8 @@
-# 🦉 카페 찾는 부엉이 - 서울에 있는 24시간/무인 카페 찾기 웹/앱 서비스
+# 🦉 카페 찾는 부엉이 - 야간 운영 카페 찾기 서비스(웹/앱)
+
+<div>
+  <img src="https://github.com/Jack42chj/coffe-zip/assets/86552441/7e022df5-d267-4542-be8c-391ae9fa4371">
+</div>
 
 ## 🖥️ 서비스 소개(Introduction)
 
@@ -6,8 +10,8 @@
   <img src="https://github.com/Jack42chj/coffe-zip/assets/86552441/a9f5b8b4-e778-4a61-8fe8-b8a349dae090">
 </div>
 
--   서울 내 야간 영업 정보를 제공하는 웹/앱 서비스입니다.
--   야간 운영은 자정 이후 또는 24시간 영업하는 카페를 의미합니다.
+-   서울 내 야간 영업 카페 정보를 제공하는 웹/앱 서비스입니다.
+-   야간 영업은 자정 이후 또는 24시간 영업하는 카페를 의미합니다.
 -   사용자에 GPS 좌표를 기준으로 반경 2km 내에 있는 카페들의 정보를 제공합니다.
 
 ## ⚙️ 요구 사항(Requirements)
@@ -195,7 +199,7 @@ https://coffeezip.vercel.app
 
 ## 🔥 트러블 슈팅(Trouble Shooting)
 
--   useEffect 카카오 지도 중복 생성
+#### 📚 useEffect 카카오 지도 중복 생성(Map Duplication)
 
 문제: React Hook useEffect를 사용해 카카오 지도를 화면에 띄우는 과정에서 발생한 문제다. useEffect는 두 번째 인자로 의존성 배열을 받아 해당 배열에 있는 값이 바뀔 때마다 첫 번째 인자인 함수를 실행하게 된다.
 
@@ -205,7 +209,7 @@ https://coffeezip.vercel.app
 
 또한 React 프로젝트를 시작하면 기본적으로 React에서 제공하는 React StrictMode가 true로 설정되어 useEffect가 두 번 작동하는 것을 false로 설정하여 오직 최초 마운트시 한 번만 작동하게 하였다.
 
--   의존성 문제(Callback 함수 및 Props 전달)
+#### ⛓️ 의존성 문제 - Callback 함수 및 Props 전달(Dependency Problem)
 
 문제: 한 개의 단일 페이지를 사용하고 있는데 이때 코드의 재사용 및 유지보수를 위해 컴포넌트 단위로 분할 하여 메인 컴포넌트 Home에서 import 하는 방식으로 진행하였다.
 
@@ -213,7 +217,7 @@ import 하는 컴포넌트는 카카오 지도를 띄우는 KakaoMap 컴포넌�
 
 해결: 상태관리 라이브러리 Zustand를 사용해 List 컴포넌트에서 클릭 이벤트가 발생하면 해당 카페 데이터를 저장하고 이를 kakaoMap 컴포넌트에서 중앙 Store에 접근하여 이를 활용하게 하였다.
 
--   Kakao Map API 커스텀 오버레이 클릭 이벤트 문제
+#### Kakao Map API 커스텀 오버레이 클릭 이벤트 문제(Kakao Map API onClick Event Listner)
 
 문제: kakao Map API를 사용하여 마커를 생성하고 클릭 이벤트로 커스텀 오버레이를 생성하여 보여주게 구현했다. 그러나 CustomOverlay에 경우 마커처럼 `addEventListener`로 클릭 이벤트 생성이 불가하다.
 
