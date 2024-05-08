@@ -2,6 +2,12 @@
 
 ## 🖥️ 서비스 소개(Introduction)
 
+<div>
+  <img src="https://github.com/Jack42chj/coffe-zip/assets/86552441/af380c4b-bbb0-489c-8595-6828617c8107">
+  <img src="https://github.com/Jack42chj/coffe-zip/assets/86552441/5b3541dd-36bb-420c-a996-8fd0d3e92b5b">
+  <img src="https://github.com/Jack42chj/coffe-zip/assets/86552441/1fdc78d6-382f-4c4f-b6ea-81e7e1640f81">
+</div>
+
 -   서울 내 야간 영업 정보를 제공하는 웹/앱 서비스입니다.
 -   야간 운영은 자정 이후 또는 24시간 영업하는 카페를 의미합니다.
 -   사용자에 GPS 좌표를 기준으로 반경 2km 내에 있는 카페들의 정보를 제공합니다.
@@ -191,14 +197,28 @@ https://coffeezip.vercel.app
 
 ## 🔥 트러블 슈팅(Trouble Shooting)
 
--   1. React Hook 중 useEffect를 사용해 지도를 화면에 띄우는 과정에서 의존성 배열에 지도에 표시할 카페 리스트를 넣다 보니 지도가 계속 재생성 되는 것을 확인하였다.(지도 줌 인, 줌 아웃 중 지속해서 이전에 생성된 지도가 나타나는 오류 발생)
+-   useEffect 카카오 지도 중복 생성
 
--   결국 의존성 배열을 제거하고 최초 마운트 시 한 개의 지도만 생성하고 이를 React Hook 중 useState로 관리하여 한 개의 지도만 조작할 수 있게 하였다. 또한, React에서 제공하는 StrictMode로 useEffect가 마운트 시 두 번 작동하는 것을 StrictMode를 false로 설정하여 오직 최초 마운트 시 한 번만 작동하게 하였다.
+문제: React Hook useEffect를 사용해 카카오 지도를 화면에 띄우는 과정에서 발생한 문제다. useEffect는 두 번째 인자로 의존성 배열을 받아 해당 배열에 있는 값이 바뀔 때마다 첫 번째 인자인 함수를 실행하게 된다.
 
--   2. 프로젝트 구조를 살펴보면 단일 페이지 Home에서 다른 컴포넌트를 import 하여 사용하고 있다. 이때 Home 컴포넌트 내에서 KakaoMap 컴포넌트와 List 컴포넌트가 존재하는데 List 컴포넌트에서 이벤트의 대한 작동을 KakaoMap 컴포넌트에서 하려다 보니 List->Home->KakaoMap 컴포넌트 순으로 Callback 함수와 props 전달이 계속 발생하여 추후에 의존성 문제로 인한 유지보수가 어렵다.
+이때 카페 목록을 의존성 배열에 넣어서 사용하니 지도가 중복으로 생성되면서 지도 조작 속도가 느려질 뿐만 아니라 이동 시 이전에 생성된 지도가 지속해서 나타나는 문제가 있었다.
 
--   상태관리 라이브러리 Zustand를 사용해 List 컴포넌트에서 이벤트를 발생했을 때 선택한 데이터를 저장하고 이를 KakaoMap 컴포넌트에서 중앙 저장소에 접근하여 이를 활용하게 바꿨다.
+해결: useEffect를 의존성 배열을 비워 최초 마운트 시 지도를 생성하고 이를 React Hook useState로 관리하여 저장한 한 개의 지도만 조작할 수 있게 하였다.
 
--   3. Kakao Map API를 사용하여 마커를 생성하고 클릭 이벤트로 CustomOverlay를 생성하여 보여주게 구현하였다. CustomOverlay에 경우 마커처럼 클릭 이벤트를 줄 수 없다고 한다. https://devtalk.kakao.com/t/topic/44205/6?u=karl.lee
+또한 React 프로젝트를 시작하면 기본적으로 React에서 제공하는 React StrictMode가 true로 설정되어 useEffect가 두 번 작동하는 것을 false로 설정하여 오직 최초 마운트시 한 번만 작동하게 하였다.
 
--   결국 CustomOverlay를 CreateElement로 생성하고 onClick 이벤트를 직접 등록하여 해결하였다.
+-   의존성 문제(Callback 함수 및 Props 전달)
+
+문제: 한 개의 단일 페이지를 사용하고 있는데 이때 코드의 재사용 및 유지보수를 위해 컴포넌트 단위로 분할 하여 메인 컴포넌트 Home에서 import 하는 방식으로 진행하였다.
+
+import 하는 컴포넌트는 카카오 지도를 띄우는 KakaoMap 컴포넌트와 카페 리스트 목록인 List 컴포넌트가 있는데 List 컴포넌트에서 카페의 클릭 이벤트에 대한 작동을 KakaoMap 컴포넌트에서 처리하려다 보니 `<List> -> <Home> -> <KakaoMap>` 컴포넌트 순으로 Callback 함수와 Props 전달이 복잡해져 추후 의존성 문제 발생 및 유지보수가 어렵고 코드가 불필요하게 늘어나는 것을 느꼈다.
+
+해결: 상태관리 라이브러리 Zustand를 사용해 List 컴포넌트에서 클릭 이벤트가 발생하면 해당 카페 데이터를 저장하고 이를 kakaoMap 컴포넌트에서 중앙 Store에 접근하여 이를 활용하게 하였다.
+
+-   Kakao Map API 커스텀 오버레이 클릭 이벤트 문제
+
+문제: kakao Map API를 사용하여 마커를 생성하고 클릭 이벤트로 커스텀 오버레이를 생성하여 보여주게 구현했다. 그러나 CustomOverlay에 경우 마커처럼 `addEventListener`로 클릭 이벤트 생성이 불가하다.
+
+https://devtalk.kakao.com/t/topic/44205/6?u=karl.lee
+
+해결: 위의 링크에 있는 글을 참고하여 CustomOverlay를 `CreateElement`로 생성하고 onClick 이벤트를 직접 등록하여 해결했다.
