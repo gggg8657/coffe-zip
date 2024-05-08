@@ -3,9 +3,7 @@
 ## 🖥️ 서비스 소개(Introduction)
 
 <div>
-  <img src="https://github.com/Jack42chj/coffe-zip/assets/86552441/af380c4b-bbb0-489c-8595-6828617c8107">
-  <img src="https://github.com/Jack42chj/coffe-zip/assets/86552441/5b3541dd-36bb-420c-a996-8fd0d3e92b5b">
-  <img src="https://github.com/Jack42chj/coffe-zip/assets/86552441/1fdc78d6-382f-4c4f-b6ea-81e7e1640f81">
+  <img src="https://github.com/Jack42chj/coffe-zip/assets/86552441/a9f5b8b4-e778-4a61-8fe8-b8a349dae090">
 </div>
 
 -   서울 내 야간 영업 정보를 제공하는 웹/앱 서비스입니다.
@@ -65,7 +63,9 @@ https://coffeezip.vercel.app
 ### 🛣️ 개발 환경(Environment)
 
 <div>
-  <img src="https://github.com/Jack42chj/coffe-zip/assets/86552441/a9f5b8b4-e778-4a61-8fe8-b8a349dae090">
+  <img src="https://img.shields.io/badge/VisualStudioCode-007ACC?style=for-the-badge&logo=visualstudiocode&logoColor=white">
+  <img src="https://img.shields.io/badge/Github-181717?style=for-the-badge&logo=github&logoColor=white">
+  <img src="https://img.shields.io/badge/Git-F05032?style=for-the-badge&logo=git&logoColor=white">
 </div>
 
 ### 💫 Config
