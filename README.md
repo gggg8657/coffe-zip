@@ -12,7 +12,7 @@
 
 -   서울 내 야간 영업 카페 정보를 제공하는 웹/앱 서비스입니다.
 -   야간 영업은 자정 이후 또는 24시간 영업하는 카페를 의미합니다.
--   사용자에 GPS 좌표를 기준으로 반경 2km 내에 있는 카페들의 정보를 제공합니다.
+-   사용자에 GPS 좌표를 기준으로 반경 2km 내에 있는 카페 목록을 제공합니다.
 
 ## ⚙️ 요구 사항(Requirements)
 
@@ -32,7 +32,7 @@ $ yan dev
 
 https://coffeezip.vercel.app
 
-## 📲 PWA를 활용한 앱(Application)
+## 📲 PWA를 활용한 앱(Progressive Web Apps)
 
 #### 🍎 iOS & Safari
 
@@ -48,18 +48,18 @@ https://coffeezip.vercel.app
 
 ## 🗓️ 개발 기간(Development Period)
 
--   **전체 개발 기간 : 2024.04.24 ~ 2024.05.XX**
--   **기획 및 디자인 : 2024.04.23 ~ 2024.04.29**
--   **UI 및 기능 구현 : 2024.04.24 ~ 2024.05.03**
--   **DB 구현 및 데이터 수집 : 2024.04.26 ~ 2024.05.XX**
+-   **전체 기간 : 2024.04.24 ~ 현재 진행 중**
+-   **기획 및 디자인 : 2024.04.23 ~ 2024.05.06**
+-   **UI 및 기능 구현 : 2024.04.24 ~ 2024.05.06**
+-   **DB 구현 및 데이터 수집 : 2024.05.07 ~ 현재 수집 중**
 
 ## 🙋‍♂️ 멤버 구성(Member)
 
-**PM 1명, 개발자 1명**
+**PM 1명, 개발자 1명(본인)**
 
-## 개인(본인) 기여도
+## 개인(본인) 기여도(Contributions)
 
--   **1인 개발(프론트 & DB)**
+-   **개발 100%(UI 및 기능 구현 & DB 설계)**
 -   **디자인 참여**
 
 ## 📚 기술 스택(Stacks)
@@ -97,7 +97,7 @@ https://coffeezip.vercel.app
   <img src="https://img.shields.io/badge/Figma-F24E1E?style=for-the-badge&logo=figma&logoColor=white">
 </div>
 
-### 🗺️ 외부 API
+### 🗺️ 외부 API(External API)
 
 <div>
   <img src="https://img.shields.io/badge/kakaomapapi-FFCD00?style=for-the-badge&logo=kakao&logoColor=white">
@@ -105,7 +105,7 @@ https://coffeezip.vercel.app
 
 ---
 
-## 📂 디렉토리 구조
+## 📂 디렉토리 구조(Directory Structure)
 
 ```bash
 24hour-cafe
@@ -188,14 +188,14 @@ https://coffeezip.vercel.app
 
 #### 🔍 장소/주소 검색 기능(Search)
 
--   카카오 지도 API의 검색 기능을 활용해 장소/주소 검색 시 자동완성 기능 지원
--   검색 시 지도의 중심을 해당 좌표로 이동과 동시에 근방 2km 이내에 있는 카페 데이터 재요청
+-   카카오 지도 API의 장소 검색 기능을 활용한 장소/주소 검색 시 자동완성 기능
+-   검색 시 지도의 중심을 검색 한 위치의 좌표로 이동과 동시에 근방 2km 이내에 있는 카페 데이터 요청
 
-#### 📬 주소 복사/공유 기능(Copy & Share)
+#### 📬 주소 복사/길 찾기 기능(Copy & Giving Direction)
 
 -   마커/리스트 클릭 시 카페 이름과 주소를 확인할 수 있는 상세보기 창 기능
 -   상세보기 창에서 주소 복사 기능으로 클립보드에 카페 주소 복사 기능 구현
--   상세보기 창에서 주소 공유 기능으로 현재 카페 정보를 다른 사람에게 공유할 수 있는 기능 구현
+-   상세보기 창에서 주소 길 찾기 기능으로 카카오 맵에서 현재 카페 주소를 도착지로 설정
 
 ## 🔥 트러블 슈팅(Trouble Shooting)
 
