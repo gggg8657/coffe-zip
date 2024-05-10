@@ -33,7 +33,7 @@ const InputWrapper = styled.div`
 
 const Input = styled.input`
     font-size: 1rem;
-    font-family: "Pretendard";
+    font-family: "Pretendard", "Noto Sans KR", sans-serif;
     background-color: #ffffff;
     border: 1px solid #d9d9d9;
     border-radius: 10px;

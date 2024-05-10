@@ -217,7 +217,7 @@ import 하는 컴포넌트는 카카오 지도를 띄우는 KakaoMap 컴포넌�
 
 해결: 상태관리 라이브러리 Zustand를 사용해 List 컴포넌트에서 클릭 이벤트가 발생하면 해당 카페 데이터를 저장하고 이를 kakaoMap 컴포넌트에서 중앙 Store에 접근하여 이를 활용하게 하였다.
 
-#### Kakao Map API 커스텀 오버레이 클릭 이벤트 문제(Kakao Map API onClick Event Listner)
+#### 🚨 Kakao Map API 커스텀 오버레이 클릭 이벤트 문제(Kakao Map API onClick Event Listner)
 
 문제: kakao Map API를 사용하여 마커를 생성하고 클릭 이벤트로 커스텀 오버레이를 생성하여 보여주게 구현했다. 그러나 CustomOverlay에 경우 마커처럼 `addEventListener`로 클릭 이벤트 생성이 불가하다.
 
