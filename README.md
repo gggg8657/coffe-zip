@@ -34,7 +34,7 @@ https://coffeezip.vercel.app
 
 ## 📖 관련 블로그(Blog)
 
-https://velog.io/@hojinch99/series/%EC%95%BC%EA%B0%84-%EC%B9%B4%ED%8E%98-%EC%A7%80%EB%8F%84-%EC%84%9C%EB%B9%84%EC%8A%A4
+https://velog.io/@hojinch99/series/야간-카페-지도-서비스
 
 ## 📲 PWA를 활용한 앱(Progressive Web Apps)
 
