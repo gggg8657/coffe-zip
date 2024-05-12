@@ -133,8 +133,13 @@ const KakaoMap: React.FC<{ list: ListProps[] }> = ({ list }) => {
             return items.map((item) => {
                 let markerUrl;
                 if (item.unmanned === true) {
-                    // 무인
-                    markerUrl = "/svg/muin.svg";
+                    // 무인 24시간
+                    if (item.closed === null) {
+                        markerUrl = "/svg/muinallday.svg";
+                    } else {
+                        // 무인 24시간 X
+                        markerUrl = "/svg/muin.svg";
+                    }
                 } else {
                     // 24시간
                     if (item.closed === null) {
